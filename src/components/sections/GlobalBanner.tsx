@@ -21,7 +21,7 @@ export const GlobalBanner = () => {
             <img 
               src={globeImage} 
               alt="Global presence - Crystal globe with golden bees symbolizing international reach and precision" 
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain object-center"
             />
           </div>
           
