@@ -24,28 +24,6 @@ export const GlobalBanner = () => {
               className="w-full h-full object-contain object-center"
             />
           </div>
-          
-          {/* City boxes overlay */}
-          <div className="absolute inset-0 flex items-start justify-center pt-8 md:pt-12">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl px-4">
-              {global.locations.map((location, index) => (
-                <motion.div
-                  key={location.city}
-                  className="bg-background/95 backdrop-blur-sm rounded-xl p-4 md:p-6 text-center space-y-2 border border-border/50 shadow-lg hover:shadow-xl hover:border-primary/30 transition-all"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-primary/10 flex items-center justify-center">
-                    <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
-                  </div>
-                  <h3 className="text-base md:text-lg font-semibold text-primary">{location.city}</h3>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{location.focus}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>
