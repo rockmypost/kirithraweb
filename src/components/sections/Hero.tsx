@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { HoneycombBackground } from "@/components/HoneycombBackground";
-import heroData from "@/content/en/hero.json";
+import heroData from "../../../content/en/hero.json";
 import { HeroContent } from "@/types/content";
 
 const hero = heroData as HeroContent;

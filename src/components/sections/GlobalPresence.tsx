@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import globalData from "@/content/en/global.json";
+import globalData from "../../../content/en/global.json";
 import { GlobalContent } from "@/types/content";
 
 const WorldMap = lazy(() => import("@/components/WorldMap").then(m => ({ default: m.WorldMap })));

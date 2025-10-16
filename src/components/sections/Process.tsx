@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/GlassCard";
-import processData from "@/content/en/process.json";
+import processData from "../../../content/en/process.json";
 import { ProcessContent } from "@/types/content";
 
 const process = processData as ProcessContent;

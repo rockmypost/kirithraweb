@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import essenceData from "@/content/en/essence.json";
+import essenceData from "../../../content/en/essence.json";
 import { EssenceContent } from "@/types/content";
 
 const NetworkGraph = lazy(() => import("@/components/NetworkGraph").then(m => ({ default: m.NetworkGraph })));

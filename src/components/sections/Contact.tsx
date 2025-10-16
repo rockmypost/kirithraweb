@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ContactForm } from "@/components/ContactForm";
-import contactData from "@/content/en/contact.json";
+import contactData from "../../../content/en/contact.json";
 import { ContactContent } from "@/types/content";
 
 const contact = contactData as ContactContent;

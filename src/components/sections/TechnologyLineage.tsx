@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/GlassCard";
-import lineageData from "@/content/en/lineage.json";
+import lineageData from "../../../content/en/lineage.json";
 import { LineageContent } from "@/types/content";
 
 const lineage = lineageData as LineageContent;

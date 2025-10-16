@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
-import proofData from "@/content/en/proof.json";
+import proofData from "../../../content/en/proof.json";
 import { ProofContent } from "@/types/content";
 
 const proof = proofData as ProofContent;

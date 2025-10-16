@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import faqData from "@/content/en/faq.json";
+import faqData from "../../../content/en/faq.json";
 import { FAQContent } from "@/types/content";
 
 const faq = faqData as FAQContent;

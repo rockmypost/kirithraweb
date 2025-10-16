@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/GlassCard";
-import servicesData from "@/content/en/services.json";
+import servicesData from "../../../content/en/services.json";
 import { ServicesContent } from "@/types/content";
 
 const services = servicesData as ServicesContent;

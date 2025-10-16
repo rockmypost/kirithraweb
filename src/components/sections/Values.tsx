@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { HexagonGrid } from "@/components/HexagonGrid";
-import valuesData from "@/content/en/values.json";
+import valuesData from "../../../content/en/values.json";
 import { ValuesContent } from "@/types/content";
 
 const values = valuesData as ValuesContent;

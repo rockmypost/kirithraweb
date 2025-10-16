@@ -1,4 +1,4 @@
-import footerData from "@/content/en/footer.json";
+import footerData from "../../content/en/footer.json";
 import { FooterContent } from "@/types/content";
 
 const footer = footerData as FooterContent;
