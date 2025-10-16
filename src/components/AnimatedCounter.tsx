@@ -53,7 +53,7 @@ export const AnimatedCounter = ({ value, label, note }: AnimatedCounterProps) =>
         </div>
         
         <div className="relative">
-          <div className="text-6xl md:text-7xl font-bold text-primary mb-3 tracking-tight">
+          <div className={`${displayValue.includes(' ') || displayValue.length > 4 ? 'text-4xl md:text-5xl' : 'text-6xl md:text-7xl'} font-bold text-primary mb-3 tracking-tight whitespace-nowrap`}>
             {displayValue}
           </div>
           <div className="text-lg font-semibold text-foreground mb-1">{label}</div>
