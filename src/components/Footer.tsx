@@ -12,7 +12,7 @@ export const Footer = () => {
           <img 
             src={logo} 
             alt="Kirithra" 
-            className="h-10 w-auto" 
+            className="h-20 w-auto" 
           />
           <p className="text-sm text-muted-foreground max-w-md">{footer.tagline}</p>
           <div className="text-xs text-muted-foreground space-y-1">
