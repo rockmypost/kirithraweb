@@ -6,7 +6,6 @@ import { Essence } from "@/components/sections/Essence";
 import { TechnologyLineage } from "@/components/sections/TechnologyLineage";
 import { Values } from "@/components/sections/Values";
 import { Services } from "@/components/sections/Services";
-import { ServicesBanner } from "@/components/sections/ServicesBanner";
 import { Proof } from "@/components/sections/Proof";
 import { Process } from "@/components/sections/Process";
 import { GlobalPresence } from "@/components/sections/GlobalPresence";
@@ -22,7 +21,6 @@ const Index = () => {
         <Essence />
         <TechnologyLineage />
         <Values />
-        <ServicesBanner />
         <Services />
         <Proof />
         <Process />
