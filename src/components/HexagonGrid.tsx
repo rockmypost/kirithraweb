@@ -9,22 +9,26 @@ interface HexagonGridProps {
 
 interface ResponsiveConfig {
   hexSize: number;
-  horizontalSpacing: number;
   numberSize: string;
   titleSize: string;
   descSize: string;
   padding: string;
+  gridCols: string;
+  gap: string;
+  enableZigzag: boolean;
 }
 
 export const HexagonGrid = ({ values }: HexagonGridProps) => {
-  // Responsive configuration for horizontal row layout
+  // Responsive configuration with proper breakpoints
   const [config, setConfig] = useState<ResponsiveConfig>({
     hexSize: 180,
-    horizontalSpacing: 135,
-    numberSize: "text-3xl",
-    titleSize: "text-base",
-    descSize: "text-[9px]",
-    padding: "px-4"
+    numberSize: "text-2xl",
+    titleSize: "text-sm",
+    descSize: "text-xs",
+    padding: "px-4",
+    gridCols: "grid-cols-1",
+    gap: "gap-8",
+    enableZigzag: false
   });
 
   useEffect(() => {
@@ -32,48 +36,52 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
       const width = window.innerWidth;
       
       if (width < 640) {
-        // Mobile: Small hexagons
-        const hexSize = 100;
+        // Mobile: 1 column, vertical stack, larger hexagons
         setConfig({
-          hexSize,
-          horizontalSpacing: hexSize * 0.75,
-          numberSize: "text-lg",
-          titleSize: "text-xs",
-          descSize: "text-[7px]",
-          padding: "px-2"
-        });
-      } else if (width < 1024) {
-        // Tablet: Medium hexagons
-        const hexSize = 140;
-        setConfig({
-          hexSize,
-          horizontalSpacing: hexSize * 0.75,
+          hexSize: 120,
           numberSize: "text-2xl",
           titleSize: "text-sm",
-          descSize: "text-[8px]",
-          padding: "px-3"
+          descSize: "text-xs",
+          padding: "px-4",
+          gridCols: "grid-cols-1",
+          gap: "gap-8",
+          enableZigzag: false
         });
-      } else if (width < 1536) {
-        // Desktop: Full hexagons
-        const hexSize = 180;
+      } else if (width < 1024) {
+        // Tablet: 2-3 columns
         setConfig({
-          hexSize,
-          horizontalSpacing: hexSize * 0.75,
+          hexSize: 160,
           numberSize: "text-3xl",
           titleSize: "text-base",
-          descSize: "text-[9px]",
-          padding: "px-4"
+          descSize: "text-sm",
+          padding: "px-4",
+          gridCols: "grid-cols-2",
+          gap: "gap-6",
+          enableZigzag: true
         });
-      } else {
-        // Large desktop: Extra large hexagons
-        const hexSize = 200;
+      } else if (width < 1536) {
+        // Desktop: 4 columns
         setConfig({
-          hexSize,
-          horizontalSpacing: hexSize * 0.75,
+          hexSize: 180,
           numberSize: "text-4xl",
           titleSize: "text-lg",
-          descSize: "text-[10px]",
-          padding: "px-5"
+          descSize: "text-base",
+          padding: "px-5",
+          gridCols: "grid-cols-4",
+          gap: "gap-4",
+          enableZigzag: true
+        });
+      } else {
+        // Large desktop: All 7 in one row
+        setConfig({
+          hexSize: 220,
+          numberSize: "text-5xl",
+          titleSize: "text-xl",
+          descSize: "text-lg",
+          padding: "px-6",
+          gridCols: "grid-cols-7",
+          gap: "gap-0",
+          enableZigzag: true
         });
       }
     };
@@ -83,15 +91,14 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Calculate positions for horizontal row with zigzag offset
+  // Calculate positions with alternating filled pattern
   const positions = values.map((_, index) => ({
-    filled: [0, 2, 4, 6].includes(index), // Alternating pattern: 1, 3, 5, 7 filled
-    index,
-    yOffset: index % 2 === 0 ? 0 : config.hexSize * 0.2 // Slight zigzag
+    filled: [0, 2, 4, 6].includes(index), // Alternating pattern
+    index
   }));
 
   return (
-    <div className="relative w-full overflow-x-auto scrollbar-hide py-8 sm:py-12">
+    <div className="relative w-full py-8 sm:py-12">
       {/* Unified glow effect */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div 
@@ -104,19 +111,21 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
         />
       </div>
 
-      {/* Horizontal hexagon row */}
-      <div className="flex items-center justify-start md:justify-center gap-0 px-4 min-w-max mx-auto">
+      {/* Responsive grid layout */}
+      <div className={`grid ${config.gridCols} ${config.gap} px-4 max-w-7xl mx-auto place-items-center`}>
         {positions.map((position, idx) => {
           const value = values[position.index];
           if (!value) return null;
           
+          // Calculate zigzag offset for larger screens
+          const yOffset = config.enableZigzag && idx % 2 !== 0 ? config.hexSize * 0.15 : 0;
+          
           return (
             <motion.div
               key={value.id}
-              className="flex-shrink-0"
+              className="relative"
               style={{ 
-                marginLeft: idx === 0 ? 0 : -config.hexSize * 0.25,
-                marginTop: position.yOffset
+                marginTop: yOffset
               }}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -145,7 +154,7 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
                   <div className={`${config.numberSize} font-extrabold mb-1 transition-all ${position.filled ? 'text-white' : 'text-primary'}`}>
                     {String(position.index + 1).padStart(2, '0')}
                   </div>
-                  <h3 className={`${config.titleSize} font-bold mb-1 transition-all ${position.filled ? 'text-white' : 'text-foreground'}`}>
+                  <h3 className={`${config.titleSize} font-bold mb-2 transition-all ${position.filled ? 'text-white' : 'text-foreground'}`}>
                     {value.title}
                   </h3>
                   <p className={`${config.descSize} leading-relaxed transition-all duration-300 ${position.filled ? 'text-white/95' : 'text-muted-foreground/70'}`}>
