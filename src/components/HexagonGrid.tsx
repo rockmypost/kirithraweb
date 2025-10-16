@@ -9,12 +9,12 @@ interface HexagonGridProps {
 export const HexagonGrid = ({ values }: HexagonGridProps) => {
   // Precise honeycomb formation - 7 hexagons (1-2-3-1 pattern)
   const hexSize = 240;
-  const horizontalSpacing = 207.8; // hexSize * 0.866
-  const verticalSpacing = 180; // hexSize * 0.75
+  const horizontalSpacing = 187; // Tighter spacing for cohesive honeycomb
+  const verticalSpacing = 158; // Tighter vertical spacing
   
   // Calculate positions from center for perfect tessellation
   const centerX = 480; // Container width / 2
-  const centerY = 400; // Container height / 2
+  const centerY = 340; // Container height / 2 - adjusted for tighter layout
   
   // Refined honeycomb positions with updated fill pattern
   const positions = [
@@ -35,10 +35,10 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
   ];
 
   return (
-    <div className="relative w-full h-[800px] max-w-5xl mx-auto p-4 overflow-visible">
-      {/* Soft peach background glow */}
-      <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] blur-[160px] rounded-full" style={{ background: 'hsl(18 80% 95%)' }} />
+    <div className="relative w-full h-[680px] max-w-5xl mx-auto p-4 overflow-visible">
+      {/* Unified honeycomb shadow for cohesion */}
+      <div className="absolute inset-0 opacity-15 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] blur-[80px] rounded-full" style={{ background: 'hsl(18 100% 80%)' }} />
       </div>
 
       {/* Value hexagons - 7 hexagons in precise formation */}
