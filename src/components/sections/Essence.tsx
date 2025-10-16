@@ -10,7 +10,7 @@ const essence = essenceData as EssenceContent;
 
 export const Essence = () => {
   return (
-    <section id="essence" className="py-16 md:py-24 relative overflow-hidden bg-background">
+    <section id="essence" className="py-32 md:py-48 relative overflow-hidden bg-background">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
           <motion.div

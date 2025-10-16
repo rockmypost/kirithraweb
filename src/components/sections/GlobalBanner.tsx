@@ -2,13 +2,12 @@ import { motion } from "framer-motion";
 import globeImage from "@/assets/globe-banner.jpg";
 import globalData from "../../../content/en/global.json";
 import { GlobalContent } from "@/types/content";
-import { WorldMap } from "@/components/WorldMap";
 
 const global = globalData as GlobalContent;
 
 export const GlobalBanner = () => {
   return (
-    <section className="py-12 md:py-16 bg-background">
+    <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           className="relative h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl overflow-hidden shadow-2xl"
@@ -26,13 +25,8 @@ export const GlobalBanner = () => {
             />
           </div>
           
-          {/* WorldMap overlay - between image and city boxes */}
-          <div className="absolute inset-0 opacity-40">
-            <WorldMap locations={global.locations} />
-          </div>
-          
           {/* City boxes overlay */}
-          <div className="absolute inset-0 flex items-start justify-center pt-10">
+          <div className="absolute inset-0 flex items-start justify-center pt-8 md:pt-12">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl px-4">
               {global.locations.map((location, index) => (
                 <motion.div
