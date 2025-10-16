@@ -14,7 +14,7 @@ export const GlassCard = ({
   return (
     <div
       className={cn(
-        "glass-card rounded-xl p-6",
+        "glass-card rounded-2xl p-6",
         hover && "glass-card-hover cursor-pointer",
         className
       )}
