@@ -26,12 +26,12 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
     { x: centerX + horizontalSpacing, y: centerY - verticalSpacing, filled: true, index: 2 },
     
     // Third row (hex 3, 4, 5)
-    { x: centerX - horizontalSpacing * 2, y: centerY, filled: false, index: 3 },
+    { x: centerX - horizontalSpacing, y: centerY, filled: false, index: 3 },
     { x: centerX, y: centerY, filled: false, index: 4 },
-    { x: centerX + horizontalSpacing * 2, y: centerY, filled: true, index: 5 },
+    { x: centerX + horizontalSpacing, y: centerY, filled: true, index: 5 },
     
     // Bottom (hex 6) - white
-    { x: centerX, y: centerY + verticalSpacing * 2, filled: false, index: 6 },
+    { x: centerX, y: centerY + verticalSpacing, filled: false, index: 6 },
   ];
 
   return (
