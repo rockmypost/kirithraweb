@@ -9,12 +9,12 @@ interface HexagonGridProps {
 export const HexagonGrid = ({ values }: HexagonGridProps) => {
   // Precise honeycomb formation - 7 hexagons (1-2-3-1 pattern)
   const hexSize = 240;
-  const horizontalSpacing = 205; // Near-perfect tessellation spacing
-  const verticalSpacing = 177; // Near-perfect vertical spacing
+  const horizontalSpacing = 208; // Perfect tessellation - hexagons touching
+  const verticalSpacing = 180; // Perfect tessellation - hexagons touching
   
   // Calculate positions from center for perfect tessellation
   const centerX = 480; // Container width / 2
-  const centerY = 360; // Container height / 2 - adjusted for near-perfect layout
+  const centerY = 360; // Container height / 2 - adjusted for perfect layout
   
   // Refined honeycomb positions with updated fill pattern
   const positions = [
