@@ -100,13 +100,13 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
     // Top (hex 1)
     { x: centerX, y: centerY - config.verticalSpacing * 1.5, filled: true, index: 0 },
     
-    // Second row (hex 2, 3)
+    // Second row (hex 2, 5, 3)
     { x: centerX - config.horizontalSpacing, y: centerY - config.verticalSpacing, filled: false, index: 1 },
+    { x: centerX, y: centerY - config.verticalSpacing, filled: false, index: 4 },
     { x: centerX + config.horizontalSpacing, y: centerY - config.verticalSpacing, filled: true, index: 2 },
     
-    // Third row (hex 4, 5, 6)
+    // Third row (hex 4, 6)
     { x: centerX - config.horizontalSpacing, y: centerY, filled: false, index: 3 },
-    { x: centerX, y: centerY, filled: false, index: 4 },
     { x: centerX + config.horizontalSpacing, y: centerY, filled: true, index: 5 },
     
     // Bottom (hex 7)
