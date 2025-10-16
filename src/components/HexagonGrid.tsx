@@ -14,12 +14,12 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
   
   // Calculate positions from center for perfect tessellation
   const centerX = 480; // Container width / 2
-  const centerY = 360; // Container height / 2 - adjusted for perfect layout
+  const centerY = 340; // Container height / 2 - adjusted for tighter formation
   
   // Refined honeycomb positions with updated fill pattern
   const positions = [
-    // Top (hex 0) - filled
-    { x: centerX, y: centerY - verticalSpacing * 2, filled: true, index: 0 },
+    // Top (hex 0) - filled - closer to center
+    { x: centerX, y: centerY - verticalSpacing * 1.5, filled: true, index: 0 },
     
     // Second row (hex 1, 2)
     { x: centerX - horizontalSpacing, y: centerY - verticalSpacing, filled: false, index: 1 },
@@ -35,10 +35,10 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
   ];
 
   return (
-    <div className="relative w-full h-[720px] max-w-5xl mx-auto p-4 overflow-visible">
+    <div className="relative w-full h-[660px] max-w-5xl mx-auto p-4 overflow-visible">
       {/* Unified honeycomb shadow for cohesion */}
       <div className="absolute inset-0 opacity-15 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] blur-[80px] rounded-full" style={{ background: 'hsl(18 100% 80%)' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] blur-[80px] rounded-full" style={{ background: 'hsl(18 100% 80%)' }} />
       </div>
 
       {/* Value hexagons - 7 hexagons in precise formation */}
