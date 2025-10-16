@@ -10,10 +10,10 @@ const essence = essenceData as EssenceContent;
 
 export const Essence = () => {
   return (
-    <section id="essence" className="py-20 md:py-32 relative overflow-hidden">
+    <section id="essence" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-white to-blue-50/30">
       {/* Background accent */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/30 blur-[120px] rounded-full" />
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/20 blur-[120px] rounded-full" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -36,11 +36,11 @@ export const Essence = () => {
               {essence.title}
             </h2>
             
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+            <p className="text-lg md:text-xl text-foreground/70 leading-relaxed">
               {essence.short}
             </p>
             
-            <p className="text-base md:text-lg text-foreground/80 leading-relaxed border-l-2 border-primary pl-6">
+            <p className="text-base md:text-lg text-foreground/80 leading-relaxed border-l-4 border-primary pl-6 bg-white/50 py-4 rounded-r-lg">
               {essence.content}
             </p>
 
@@ -49,14 +49,14 @@ export const Essence = () => {
               {["Adaptive Systems", "Global Intelligence", "Compounding Performance", "Strategic Control"].map((feature, i) => (
                 <motion.div
                   key={feature}
-                  className="glass-card p-4 text-center"
+                  className="glass-card p-4 text-center hover:shadow-xl hover:shadow-primary/20"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6 + i * 0.1 }}
                 >
                   <div className="text-primary text-2xl font-bold mb-1">0{i + 1}</div>
-                  <div className="text-xs font-medium">{feature}</div>
+                  <div className="text-sm font-medium text-foreground">{feature}</div>
                 </motion.div>
               ))}
             </div>
@@ -69,20 +69,11 @@ export const Essence = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            {/* Honeycomb background pattern */}
-            <div className="absolute inset-0 opacity-10 rounded-2xl overflow-hidden">
-              <img 
-                src={honeycombPattern} 
-                alt="" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-
             {/* Network graph */}
-            <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden glass-card">
+            <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-xl">
               <Suspense fallback={
-                <div className="w-full h-full bg-muted/10 animate-pulse flex items-center justify-center">
-                  <div className="text-muted-foreground text-sm">Loading visualization...</div>
+                <div className="w-full h-full bg-blue-50/20 animate-pulse flex items-center justify-center">
+                  <div className="text-foreground/50 text-sm">Loading visualization...</div>
                 </div>
               }>
                 <NetworkGraph />
@@ -90,9 +81,9 @@ export const Essence = () => {
             </div>
 
             {/* Decorative hexagons */}
-            <div className="absolute -top-8 -right-8 w-24 h-24 border-2 border-primary/30 rotate-12"
+            <div className="absolute -top-8 -right-8 w-24 h-24 border-4 border-primary/40 rotate-12 shadow-lg"
                  style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }} />
-            <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-primary/20 -rotate-12"
+            <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-accent/30 -rotate-12 shadow-lg"
                  style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }} />
           </motion.div>
         </div>

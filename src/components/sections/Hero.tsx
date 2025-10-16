@@ -21,7 +21,7 @@ export const Hero = () => {
       </div>
 
       {/* Honeycomb overlay */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0 opacity-10">
         <HoneycombBackground />
       </div>
       
@@ -52,7 +52,7 @@ export const Hero = () => {
           </motion.h1>
           
           <motion.p
-            className="text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-4xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl lg:text-3xl text-foreground/70 max-w-4xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -61,7 +61,7 @@ export const Hero = () => {
           </motion.p>
           
           <motion.p
-            className="text-sm md:text-base text-muted-foreground/80 italic max-w-2xl mx-auto"
+            className="text-sm md:text-base text-foreground/60 italic max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}

@@ -8,68 +8,60 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Kirithra Design System - Hermes Orange Palette */
-    --primary-dark: 220 13% 5%;
-    --primary-light: 0 0% 98%;
+    /* Kirithra Design System - Light Theme with Hermes Orange */
     
     /* Primary - Hermes Orange */
-    --primary: 22 100% 50%;
+    --primary: 18 100% 50%;
     --primary-foreground: 0 0% 100%;
     --primary-glow: 30 100% 60%;
     
     /* Accent Colors */
-    --accent-gold: 38 92% 60%;
+    --accent-gold: 38 92% 50%;
     --accent-amber: 35 100% 55%;
     
-    /* Glass morphism - Orange tint */
-    --glass-bg: 255 107 0;
-    --glass-bg-opacity: 0.05;
-    --glass-border: 255 107 0;
-    --glass-border-opacity: 0.15;
+    /* Semantic tokens - Light */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
     
-    /* Semantic tokens */
-    --background: 220 13% 5%;
-    --foreground: 0 0% 98%;
-    --card: 220 15% 8%;
-    --card-foreground: 0 0% 98%;
-    --popover: 220 15% 8%;
-    --popover-foreground: 0 0% 98%;
-    
-    /* Secondary - Sophisticated Slate */
-    --secondary: 215 25% 15%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 215 20% 12%;
-    --muted-foreground: 215 15% 65%;
+    /* Secondary - Light Gray */
+    --secondary: 210 20% 92%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 20% 95%;
+    --muted-foreground: 215 16% 47%;
     
     /* Accent */
-    --accent: 35 100% 55%;
-    --accent-foreground: 0 0% 9%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
     
     /* Destructive */
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
     
     /* UI Elements */
-    --border: 215 20% 18%;
-    --input: 215 20% 15%;
-    --ring: 22 100% 50%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 18 100% 50%;
     --radius: 0.75rem;
     
     /* Custom animation easing */
     --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Gradients - Hermes Orange */
-    --gradient-primary: linear-gradient(135deg, hsl(22 100% 50%), hsl(30 100% 60%));
+    /* Gradients - Hermes Orange on Light */
+    --gradient-primary: linear-gradient(135deg, hsl(18 100% 50%), hsl(30 100% 60%));
     --gradient-gold: linear-gradient(135deg, hsl(var(--accent-gold)), hsl(var(--accent-amber)));
-    --gradient-subtle: linear-gradient(180deg, hsl(220 13% 5%), hsl(220 15% 8%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 13% 5%) 0%, hsl(22 100% 50% / 0.1) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(210 40% 98%), hsl(0 0% 100%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 40% 98%) 0%, hsl(18 100% 50% / 0.05) 100%);
     
-    /* Shadows - Orange Glow */
-    --shadow-elegant: 0 10px 40px -10px rgba(255, 107, 0, 0.3);
-    --shadow-glow: 0 0 60px rgba(255, 107, 0, 0.25);
-    --shadow-premium: 0 20px 60px -15px rgba(255, 107, 0, 0.4);
-    --shadow-card: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    /* Shadows - Orange Glow on Light */
+    --shadow-elegant: 0 10px 40px -10px rgba(255, 107, 0, 0.2);
+    --shadow-glow: 0 0 40px rgba(255, 107, 0, 0.15);
+    --shadow-premium: 0 20px 60px -15px rgba(255, 107, 0, 0.25);
+    --shadow-card: 0 4px 20px -4px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -95,11 +87,7 @@ All colors MUST be HSL.
 
 @layer utilities {
   .glass-card {
-    background: rgba(var(--glass-bg), var(--glass-bg-opacity));
-    border: 1px solid rgba(var(--glass-border), var(--glass-border-opacity));
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: var(--shadow-card);
+    @apply backdrop-blur-sm bg-white/80 border border-gray-200/50 shadow-lg;
     transition: all 0.3s var(--ease-smooth);
   }
   
@@ -108,8 +96,8 @@ All colors MUST be HSL.
   }
   
   .glass-card-hover:hover {
-    border-color: hsl(var(--primary) / 0.3);
-    box-shadow: var(--shadow-glow);
+    @apply bg-white/90 border-primary/30 shadow-xl;
+    box-shadow: 0 20px 40px -10px rgba(255, 107, 0, 0.15);
     transform: translateY(-2px);
   }
   
