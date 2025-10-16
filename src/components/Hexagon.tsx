@@ -21,31 +21,48 @@ export const Hexagon = ({
     <div className={cn("relative inline-block", className)} style={{ width: size, height: size }}>
       <svg
         viewBox="0 0 100 100"
-        className="w-full h-full drop-shadow-[0_8px_16px_rgba(0,0,0,0.15)]"
+        className="w-full h-full"
+        style={{ filter: 'drop-shadow(0 8px 24px hsl(18 100% 50% / 0.15))' }}
       >
-        {/* Bottom shadow layer */}
+        {/* Shadow layer for 3D depth */}
         <polygon
           points={points}
-          fill="rgba(0,0,0,0.1)"
-          className="translate-y-1"
+          fill="hsl(18 100% 50% / 0.08)"
+          className="translate-y-2"
         />
-        {/* Main hexagon */}
+        
+        {/* Main hexagon with gradient */}
         <polygon
           points={points}
-          fill={filled ? "hsl(var(--primary))" : "hsl(var(--card))"}
-          stroke="hsl(var(--border))"
+          fill={filled ? "url(#hexGradientFilled)" : "url(#hexGradientWhite)"}
+          stroke={filled ? "hsl(18 100% 50%)" : "hsl(var(--border))"}
           strokeWidth={strokeWidth}
           className="transition-all duration-300"
         />
-        {/* Top highlight */}
+        
+        {/* Top highlight for glossy effect */}
         <polygon
           points={points}
-          fill="url(#hexGradient)"
+          fill="url(#hexHighlight)"
           className="transition-all duration-300"
         />
+        
         <defs>
-          <linearGradient id="hexGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="white" stopOpacity="0.3" />
+          {/* Gradient for filled hexagons */}
+          <linearGradient id="hexGradientFilled" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="hsl(18 100% 50%)" />
+            <stop offset="100%" stopColor="hsl(18 100% 45%)" />
+          </linearGradient>
+          
+          {/* Gradient for white hexagons */}
+          <linearGradient id="hexGradientWhite" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="hsl(0 0% 100%)" />
+            <stop offset="100%" stopColor="hsl(30 15% 98%)" />
+          </linearGradient>
+          
+          {/* Top highlight */}
+          <linearGradient id="hexHighlight" x1="0%" y1="0%" x2="0%" y2="50%">
+            <stop offset="0%" stopColor="white" stopOpacity="0.4" />
             <stop offset="100%" stopColor="white" stopOpacity="0" />
           </linearGradient>
         </defs>

@@ -4,7 +4,7 @@
   "short": "Global structures redefined. Assets repositioned. Platforms scaled.",
   "items": [
     { "label": "Jurisdictions", "value": "21+", "note": "Anonymized across mandates" },
-    { "label": "Mandates executed", "value": "XX", "note": "Under NDA" },
+    { "label": "Mandates executed", "value": "14", "note": "Under NDA" },
     { "label": "Avg. time to deploy", "value": "90 days", "note": "Strategy sprint baseline" }
   ],
   "lastUpdated": "2025-10-16"

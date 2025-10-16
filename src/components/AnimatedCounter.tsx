@@ -38,16 +38,28 @@ export const AnimatedCounter = ({ value, label, note }: AnimatedCounterProps) =>
   return (
     <motion.div
       ref={ref}
-      className="text-center"
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6 }}
+      className="relative group"
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
     >
-      <div className="text-4xl md:text-5xl font-bold text-gradient-gold mb-2">
-        {displayValue}
+      <div className="relative bg-gradient-to-br from-white to-secondary/30 rounded-2xl p-8 border border-border/50 transition-all duration-300 group-hover:border-primary/30 group-hover:shadow-[0_20px_40px_-10px_hsl(18_100%_50%/0.2)]">
+        {/* Subtle hex accent */}
+        <div className="absolute top-4 right-4 w-8 h-8 opacity-10 group-hover:opacity-20 transition-opacity">
+          <svg viewBox="0 0 100 100" className="w-full h-full">
+            <polygon points="50,5 93.3,25 93.3,75 50,95 6.7,75 6.7,25" fill="hsl(var(--primary))" />
+          </svg>
+        </div>
+        
+        <div className="relative">
+          <div className="text-6xl md:text-7xl font-bold text-primary mb-3 tracking-tight">
+            {displayValue}
+          </div>
+          <div className="text-lg font-semibold text-foreground mb-1">{label}</div>
+          {note && <div className="text-sm text-muted-foreground">{note}</div>}
+        </div>
       </div>
-      <div className="text-sm font-medium text-foreground mb-1">{label}</div>
-      {note && <div className="text-xs text-muted-foreground">{note}</div>}
     </motion.div>
   );
 };
