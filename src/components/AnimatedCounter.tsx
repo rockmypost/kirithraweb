@@ -52,9 +52,11 @@ export const AnimatedCounter = ({ value, label, note }: AnimatedCounterProps) =>
           </svg>
         </div>
         
-        <div className="relative">
-          <div className={`${displayValue.includes(' ') || displayValue.length > 4 ? 'text-4xl md:text-5xl' : 'text-6xl md:text-7xl'} font-bold text-primary mb-3 tracking-tight whitespace-nowrap`}>
-            {displayValue}
+        <div className="relative flex flex-col">
+          <div className="h-16 md:h-20 flex items-center mb-3">
+            <div className={`${displayValue.includes(' ') || displayValue.length > 4 ? 'text-4xl md:text-5xl' : 'text-6xl md:text-7xl'} font-bold text-primary tracking-tight whitespace-nowrap`}>
+              {displayValue}
+            </div>
           </div>
           <div className="text-lg font-semibold text-foreground mb-1">{label}</div>
           {note && <div className="text-sm text-muted-foreground">{note}</div>}
