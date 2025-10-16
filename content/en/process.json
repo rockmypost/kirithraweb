@@ -4,8 +4,12 @@
   "short": "Simple. Transparent. Outcome-driven.",
   "steps": [
     { "id": 1, "title": "Diagnostic", "description": "Two-week deep dive: constraints, stakeholders, economics." },
-    { "id": 2, "title": "90-Day Sprint", "description": "Focused execution with weekly governance." },
-    { "id": 3, "title": "Scale or Exit", "description": "Extend, replicate, or hand over — fully documented." }
+    { "id": 2, "title": "Strategy", "description": "Clear roadmap aligned with business objectives." },
+    { "id": 3, "title": "90-Day Sprint", "description": "Focused execution with weekly governance." },
+    { "id": 4, "title": "Implementation", "description": "Deploy solutions with precision and speed." },
+    { "id": 5, "title": "Validation", "description": "Measure outcomes against defined metrics." },
+    { "id": 6, "title": "Optimization", "description": "Refine and enhance based on real data." },
+    { "id": 7, "title": "Scale or Exit", "description": "Extend, replicate, or hand over — fully documented." }
   ],
   "lastUpdated": "2025-10-16"
 }

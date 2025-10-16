@@ -10,8 +10,6 @@ interface HexagonGridProps {
 interface ResponsiveConfig {
   hexSize: number;
   horizontalSpacing: number;
-  verticalSpacing: number;
-  containerHeight: string;
   numberSize: string;
   titleSize: string;
   descSize: string;
@@ -19,16 +17,14 @@ interface ResponsiveConfig {
 }
 
 export const HexagonGrid = ({ values }: HexagonGridProps) => {
-  // Responsive configuration based on screen size
+  // Responsive configuration for horizontal row layout
   const [config, setConfig] = useState<ResponsiveConfig>({
-    hexSize: 240,
-    horizontalSpacing: 208,
-    verticalSpacing: 180,
-    containerHeight: "h-[660px]",
-    numberSize: "text-5xl",
-    titleSize: "text-2xl",
-    descSize: "text-[11px]",
-    padding: "px-12"
+    hexSize: 180,
+    horizontalSpacing: 135,
+    numberSize: "text-3xl",
+    titleSize: "text-base",
+    descSize: "text-[9px]",
+    padding: "px-4"
   });
 
   useEffect(() => {
@@ -36,56 +32,48 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
       const width = window.innerWidth;
       
       if (width < 640) {
-        // Mobile: Perfect tessellation
-        const hexSize = 120;
+        // Mobile: Small hexagons
+        const hexSize = 100;
         setConfig({
           hexSize,
-          horizontalSpacing: hexSize * 0.75, // 90px - hexagons touch
-          verticalSpacing: hexSize * 0.866, // 104px - hexagons touch
-          containerHeight: "min-h-[550px]",
+          horizontalSpacing: hexSize * 0.75,
+          numberSize: "text-lg",
+          titleSize: "text-xs",
+          descSize: "text-[7px]",
+          padding: "px-2"
+        });
+      } else if (width < 1024) {
+        // Tablet: Medium hexagons
+        const hexSize = 140;
+        setConfig({
+          hexSize,
+          horizontalSpacing: hexSize * 0.75,
           numberSize: "text-2xl",
           titleSize: "text-sm",
           descSize: "text-[8px]",
-          padding: "px-4"
+          padding: "px-3"
         });
-      } else if (width < 1024) {
-        // Tablet: Perfect tessellation
-        const hexSize = 160;
+      } else if (width < 1536) {
+        // Desktop: Full hexagons
+        const hexSize = 180;
         setConfig({
           hexSize,
-          horizontalSpacing: hexSize * 0.75, // 120px - hexagons touch
-          verticalSpacing: hexSize * 0.866, // 139px - hexagons touch
-          containerHeight: "h-[650px]",
+          horizontalSpacing: hexSize * 0.75,
           numberSize: "text-3xl",
           titleSize: "text-base",
           descSize: "text-[9px]",
-          padding: "px-6"
+          padding: "px-4"
         });
-      } else if (width < 1536) {
-        // Desktop: Perfect tessellation
+      } else {
+        // Large desktop: Extra large hexagons
         const hexSize = 200;
         setConfig({
           hexSize,
-          horizontalSpacing: hexSize * 0.75, // 150px - hexagons touch
-          verticalSpacing: hexSize * 0.866, // 173px - hexagons touch
-          containerHeight: "h-[750px]",
+          horizontalSpacing: hexSize * 0.75,
           numberSize: "text-4xl",
           titleSize: "text-lg",
           descSize: "text-[10px]",
-          padding: "px-8"
-        });
-      } else {
-        // Large desktop: Perfect tessellation
-        const hexSize = 240;
-        setConfig({
-          hexSize,
-          horizontalSpacing: hexSize * 0.75, // 180px - hexagons touch
-          verticalSpacing: hexSize * 0.866, // 208px - hexagons touch
-          containerHeight: "h-[850px]",
-          numberSize: "text-5xl",
-          titleSize: "text-xl",
-          descSize: "text-[11px]",
-          padding: "px-10"
+          padding: "px-5"
         });
       }
     };
@@ -95,90 +83,80 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Calculate responsive positions based on config
-  const centerX = config.hexSize * 2; // Dynamic center based on hex size
-  const centerY = config.hexSize * 1.4;
-  
-  // Perfect tessellated honeycomb - 7 hexagons touching edge-to-edge
-  const positions = [
-    // Top (hex 1)
-    { x: centerX, y: centerY - config.verticalSpacing * 1.5, filled: true, index: 0 },
-    
-    // Second row (hex 2, 3)
-    { x: centerX - config.horizontalSpacing, y: centerY - config.verticalSpacing, filled: false, index: 1 },
-    { x: centerX + config.horizontalSpacing, y: centerY - config.verticalSpacing, filled: true, index: 2 },
-    
-    // Center row (hex 4, 5, 6) - wider middle row
-    { x: centerX - config.horizontalSpacing * 2, y: centerY, filled: false, index: 3 },
-    { x: centerX, y: centerY, filled: false, index: 4 },
-    { x: centerX + config.horizontalSpacing * 2, y: centerY, filled: true, index: 5 },
-    
-    // Bottom (hex 7)
-    { x: centerX, y: centerY + config.verticalSpacing * 1.5, filled: false, index: 6 },
-  ];
+  // Calculate positions for horizontal row with zigzag offset
+  const positions = values.map((_, index) => ({
+    filled: [0, 2, 4, 6].includes(index), // Alternating pattern: 1, 3, 5, 7 filled
+    index,
+    yOffset: index % 2 === 0 ? 0 : config.hexSize * 0.2 // Slight zigzag
+  }));
 
   return (
-    <div className={`relative w-full ${config.containerHeight} max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 overflow-visible`}>
-      {/* Unified honeycomb shadow - responsive sizing */}
-      <div className="absolute inset-0 opacity-15 pointer-events-none">
+    <div className="relative w-full overflow-x-auto scrollbar-hide py-8 sm:py-12">
+      {/* Unified glow effect */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[60px] sm:blur-[70px] lg:blur-[80px] rounded-full" 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-[80px] rounded-full" 
           style={{ 
             background: 'hsl(18 100% 80%)',
-            width: `${config.hexSize * 2.5}px`,
-            height: `${config.hexSize * 2.5}px`
+            width: '600px',
+            height: '300px'
           }} 
         />
       </div>
 
-      {/* Value hexagons - 7 hexagons in precise formation */}
-      {positions.map((position, idx) => {
-        const value = values[position.index];
-        if (!value) return null;
-        
-        return (
-          <motion.div
-            key={value.id}
-            className="absolute -translate-x-1/2 -translate-y-1/2"
-            style={{ left: position.x, top: position.y }}
-            initial={{ opacity: 0, scale: 0.8, y: -20 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ 
-              delay: idx * 0.12, 
-              duration: 0.6,
-              type: "spring",
-              stiffness: 80
-            }}
-            whileHover={{ 
-              scale: 1.03, 
-              y: -6,
-              zIndex: 10,
-              transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
-            }}
-          >
-            <div className="relative group cursor-pointer">
-              <Hexagon 
-                size={config.hexSize} 
-                filled={position.filled} 
-                strokeWidth={1}
-                className="transition-all duration-300 group-hover:drop-shadow-[0_8px_24px_hsl(18_100%_80%_/_0.4)]" 
-              />
-              <div className={`absolute inset-0 flex flex-col items-center justify-center text-center ${config.padding}`}>
-                <div className={`${config.numberSize} font-extrabold mb-1 sm:mb-2 transition-all ${position.filled ? 'text-white' : 'text-primary'}`}>
-                  {String(position.index + 1).padStart(2, '0')}
+      {/* Horizontal hexagon row */}
+      <div className="flex items-center justify-start md:justify-center gap-0 px-4 min-w-max mx-auto">
+        {positions.map((position, idx) => {
+          const value = values[position.index];
+          if (!value) return null;
+          
+          return (
+            <motion.div
+              key={value.id}
+              className="flex-shrink-0"
+              style={{ 
+                marginLeft: idx === 0 ? 0 : -config.hexSize * 0.25,
+                marginTop: position.yOffset
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ 
+                delay: idx * 0.1, 
+                duration: 0.5,
+                type: "spring",
+                stiffness: 100
+              }}
+              whileHover={{ 
+                scale: 1.05, 
+                y: -8,
+                zIndex: 10,
+                transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+              }}
+            >
+              <div className="relative group cursor-pointer">
+                <Hexagon 
+                  size={config.hexSize} 
+                  filled={position.filled} 
+                  strokeWidth={1}
+                  className="transition-all duration-300 group-hover:drop-shadow-[0_8px_24px_hsl(18_100%_80%_/_0.4)]" 
+                />
+                <div className={`absolute inset-0 flex flex-col items-center justify-center text-center ${config.padding}`}>
+                  <div className={`${config.numberSize} font-extrabold mb-1 transition-all ${position.filled ? 'text-white' : 'text-primary'}`}>
+                    {String(position.index + 1).padStart(2, '0')}
+                  </div>
+                  <h3 className={`${config.titleSize} font-bold mb-1 transition-all ${position.filled ? 'text-white' : 'text-foreground'}`}>
+                    {value.title}
+                  </h3>
+                  <p className={`${config.descSize} leading-relaxed transition-all duration-300 ${position.filled ? 'text-white/95' : 'text-muted-foreground/70'}`}>
+                    {value.description}
+                  </p>
                 </div>
-                <h3 className={`${config.titleSize} font-bold mb-1 sm:mb-2 lg:mb-3 transition-all ${position.filled ? 'text-white' : 'text-foreground'}`}>
-                  {value.title}
-                </h3>
-                <p className={`${config.descSize} leading-relaxed transition-all duration-300 ${position.filled ? 'text-white/95' : 'text-muted-foreground/70'}`}>
-                  {value.description}
-                </p>
               </div>
-            </div>
-          </motion.div>
-        );
-      })}
+            </motion.div>
+          );
+        })}
+      </div>
     </div>
   );
 };
