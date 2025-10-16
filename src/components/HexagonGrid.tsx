@@ -9,12 +9,12 @@ interface HexagonGridProps {
 export const HexagonGrid = ({ values }: HexagonGridProps) => {
   // Precise honeycomb formation - 7 hexagons (1-2-3-1 pattern)
   const hexSize = 240;
-  const horizontalSpacing = 187; // Tighter spacing for cohesive honeycomb
-  const verticalSpacing = 158; // Tighter vertical spacing
+  const horizontalSpacing = 205; // Near-perfect tessellation spacing
+  const verticalSpacing = 177; // Near-perfect vertical spacing
   
   // Calculate positions from center for perfect tessellation
   const centerX = 480; // Container width / 2
-  const centerY = 340; // Container height / 2 - adjusted for tighter layout
+  const centerY = 360; // Container height / 2 - adjusted for near-perfect layout
   
   // Refined honeycomb positions with updated fill pattern
   const positions = [
@@ -35,10 +35,10 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
   ];
 
   return (
-    <div className="relative w-full h-[680px] max-w-5xl mx-auto p-4 overflow-visible">
+    <div className="relative w-full h-[720px] max-w-5xl mx-auto p-4 overflow-visible">
       {/* Unified honeycomb shadow for cohesion */}
       <div className="absolute inset-0 opacity-15 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] blur-[80px] rounded-full" style={{ background: 'hsl(18 100% 80%)' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] blur-[80px] rounded-full" style={{ background: 'hsl(18 100% 80%)' }} />
       </div>
 
       {/* Value hexagons - 7 hexagons in precise formation */}
@@ -61,8 +61,8 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
               stiffness: 80
             }}
             whileHover={{ 
-              scale: 1.05, 
-              y: -8,
+              scale: 1.03, 
+              y: -6,
               zIndex: 10,
               transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
             }}
@@ -74,7 +74,7 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
                 strokeWidth={1}
                 className="transition-all duration-300 group-hover:drop-shadow-[0_8px_24px_hsl(18_100%_80%_/_0.4)]" 
               />
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-14">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-12">
                 <div className={`text-5xl font-extrabold mb-2 transition-all ${position.filled ? 'text-white' : 'text-primary'}`}>
                   {String(position.index + 1).padStart(2, '0')}
                 </div>
