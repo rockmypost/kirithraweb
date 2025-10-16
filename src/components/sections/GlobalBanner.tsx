@@ -6,7 +6,7 @@ export const GlobalBanner = () => {
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
-          className="relative h-[300px] md:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl"
+          className="relative h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
