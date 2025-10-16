@@ -14,6 +14,7 @@ interface ResponsiveConfig {
   titleSize: string;
   descSize: string;
   padding: string;
+  layout: 'vertical' | 'horizontal';
 }
 
 export const HexagonGrid = ({ values }: HexagonGridProps) => {
@@ -24,26 +25,28 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
     numberSize: "text-3xl",
     titleSize: "text-base",
     descSize: "text-[9px]",
-    padding: "px-4"
+    padding: "px-4",
+    layout: 'horizontal'
   });
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
       
-      if (width < 640) {
-        // Mobile: Small hexagons
-        const hexSize = 100;
+      if (width < 768) {
+        // Mobile: Small hexagons, vertical layout
+        const hexSize = 120;
         setConfig({
           hexSize,
           horizontalSpacing: hexSize * 0.75,
-          numberSize: "text-lg",
-          titleSize: "text-xs",
-          descSize: "text-[7px]",
-          padding: "px-2"
+          numberSize: "text-2xl",
+          titleSize: "text-sm",
+          descSize: "text-[8px]",
+          padding: "px-3",
+          layout: 'vertical'
         });
       } else if (width < 1024) {
-        // Tablet: Medium hexagons
+        // Tablet: Medium hexagons, horizontal layout
         const hexSize = 140;
         setConfig({
           hexSize,
@@ -51,10 +54,11 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
           numberSize: "text-2xl",
           titleSize: "text-sm",
           descSize: "text-[8px]",
-          padding: "px-3"
+          padding: "px-3",
+          layout: 'horizontal'
         });
       } else if (width < 1536) {
-        // Desktop: Full hexagons
+        // Desktop: Full hexagons, horizontal layout
         const hexSize = 180;
         setConfig({
           hexSize,
@@ -62,10 +66,11 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
           numberSize: "text-3xl",
           titleSize: "text-base",
           descSize: "text-[9px]",
-          padding: "px-4"
+          padding: "px-4",
+          layout: 'horizontal'
         });
       } else {
-        // Large desktop: Extra large hexagons
+        // Large desktop: Extra large hexagons, horizontal layout
         const hexSize = 200;
         setConfig({
           hexSize,
@@ -73,7 +78,8 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
           numberSize: "text-4xl",
           titleSize: "text-lg",
           descSize: "text-[10px]",
-          padding: "px-5"
+          padding: "px-5",
+          layout: 'horizontal'
         });
       }
     };
@@ -83,15 +89,15 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Calculate positions for horizontal row with zigzag offset
+  // Calculate positions with zigzag offset for horizontal layout only
   const positions = values.map((_, index) => ({
     filled: [0, 2, 4, 6].includes(index), // Alternating pattern: 1, 3, 5, 7 filled
     index,
-    yOffset: index % 2 === 0 ? 0 : config.hexSize * 0.2 // Slight zigzag
+    yOffset: config.layout === 'horizontal' && index % 2 === 0 ? 0 : config.layout === 'horizontal' ? config.hexSize * 0.2 : 0
   }));
 
   return (
-    <div className="relative w-full overflow-x-auto scrollbar-hide py-8 sm:py-12">
+    <div className={`relative w-full py-8 sm:py-12 ${config.layout === 'horizontal' ? 'overflow-x-auto scrollbar-hide' : ''}`}>
       {/* Unified glow effect */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div 
@@ -104,8 +110,8 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
         />
       </div>
 
-      {/* Horizontal hexagon row */}
-      <div className="flex items-center justify-start md:justify-center gap-0 px-4 min-w-max mx-auto">
+      {/* Responsive hexagon layout */}
+      <div className={`flex ${config.layout === 'vertical' ? 'flex-col items-center' : 'items-center justify-start md:justify-center'} gap-0 px-4 ${config.layout === 'horizontal' ? 'min-w-max' : ''} mx-auto`}>
         {positions.map((position, idx) => {
           const value = values[position.index];
           if (!value) return null;
@@ -115,8 +121,9 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
               key={value.id}
               className="flex-shrink-0"
               style={{ 
-                marginLeft: idx === 0 ? 0 : -config.hexSize * 0.25,
-                marginTop: position.yOffset
+                marginLeft: config.layout === 'horizontal' && idx > 0 ? -config.hexSize * 0.25 : 0,
+                marginTop: config.layout === 'horizontal' ? position.yOffset : 0,
+                marginBottom: config.layout === 'vertical' && idx < positions.length - 1 ? -config.hexSize * 0.15 : 0
               }}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
