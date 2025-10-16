@@ -38,13 +38,13 @@ export const AnimatedCounter = ({ value, label, note }: AnimatedCounterProps) =>
   return (
     <motion.div
       ref={ref}
-      className="relative group"
+      className="relative group h-full"
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -8, transition: { duration: 0.3 } }}
     >
-      <div className="relative bg-gradient-to-br from-white to-secondary/30 rounded-2xl p-8 border border-border/50 transition-all duration-300 group-hover:border-primary/30 group-hover:shadow-[0_20px_40px_-10px_hsl(18_100%_50%/0.2)]">
+      <div className="relative h-full flex flex-col bg-gradient-to-br from-white to-secondary/30 rounded-2xl p-8 border border-border/50 transition-all duration-300 group-hover:border-primary/30 group-hover:shadow-[0_20px_40px_-10px_hsl(18_100%_50%/0.2)]">
         {/* Subtle hex accent */}
         <div className="absolute top-4 right-4 w-8 h-8 opacity-10 group-hover:opacity-20 transition-opacity">
           <svg viewBox="0 0 100 100" className="w-full h-full">
