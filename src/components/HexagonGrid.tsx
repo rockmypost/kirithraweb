@@ -36,52 +36,56 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
       const width = window.innerWidth;
       
       if (width < 640) {
-        // Mobile: Compact vertical layout
+        // Mobile: Perfect tessellation
+        const hexSize = 120;
         setConfig({
-          hexSize: 140,
-          horizontalSpacing: 120,
-          verticalSpacing: 105,
-          containerHeight: "min-h-[1100px]",
+          hexSize,
+          horizontalSpacing: hexSize * 0.75, // 90px - hexagons touch
+          verticalSpacing: hexSize * 0.866, // 104px - hexagons touch
+          containerHeight: "min-h-[550px]",
+          numberSize: "text-2xl",
+          titleSize: "text-sm",
+          descSize: "text-[8px]",
+          padding: "px-4"
+        });
+      } else if (width < 1024) {
+        // Tablet: Perfect tessellation
+        const hexSize = 160;
+        setConfig({
+          hexSize,
+          horizontalSpacing: hexSize * 0.75, // 120px - hexagons touch
+          verticalSpacing: hexSize * 0.866, // 139px - hexagons touch
+          containerHeight: "h-[650px]",
           numberSize: "text-3xl",
           titleSize: "text-base",
           descSize: "text-[9px]",
           padding: "px-6"
         });
-      } else if (width < 1024) {
-        // Tablet: Medium honeycomb
+      } else if (width < 1536) {
+        // Desktop: Perfect tessellation
+        const hexSize = 200;
         setConfig({
-          hexSize: 180,
-          horizontalSpacing: 156,
-          verticalSpacing: 135,
-          containerHeight: "h-[550px]",
+          hexSize,
+          horizontalSpacing: hexSize * 0.75, // 150px - hexagons touch
+          verticalSpacing: hexSize * 0.866, // 173px - hexagons touch
+          containerHeight: "h-[750px]",
           numberSize: "text-4xl",
-          titleSize: "text-xl",
+          titleSize: "text-lg",
           descSize: "text-[10px]",
           padding: "px-8"
         });
-      } else if (width < 1536) {
-        // Desktop: Full honeycomb
-        setConfig({
-          hexSize: 240,
-          horizontalSpacing: 208,
-          verticalSpacing: 180,
-          containerHeight: "h-[660px]",
-          numberSize: "text-5xl",
-          titleSize: "text-2xl",
-          descSize: "text-[11px]",
-          padding: "px-12"
-        });
       } else {
-        // Large desktop: Enhanced spacing
+        // Large desktop: Perfect tessellation
+        const hexSize = 240;
         setConfig({
-          hexSize: 260,
-          horizontalSpacing: 225,
-          verticalSpacing: 195,
-          containerHeight: "h-[720px]",
-          numberSize: "text-6xl",
-          titleSize: "text-3xl",
-          descSize: "text-xs",
-          padding: "px-14"
+          hexSize,
+          horizontalSpacing: hexSize * 0.75, // 180px - hexagons touch
+          verticalSpacing: hexSize * 0.866, // 208px - hexagons touch
+          containerHeight: "h-[850px]",
+          numberSize: "text-5xl",
+          titleSize: "text-xl",
+          descSize: "text-[11px]",
+          padding: "px-10"
         });
       }
     };
@@ -95,7 +99,7 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
   const centerX = config.hexSize * 2; // Dynamic center based on hex size
   const centerY = config.hexSize * 1.4;
   
-  // Honeycomb positions - 7 hexagons in tessellated formation
+  // Perfect tessellated honeycomb - 7 hexagons touching edge-to-edge
   const positions = [
     // Top (hex 1)
     { x: centerX, y: centerY - config.verticalSpacing * 1.5, filled: true, index: 0 },
@@ -104,13 +108,13 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
     { x: centerX - config.horizontalSpacing, y: centerY - config.verticalSpacing, filled: false, index: 1 },
     { x: centerX + config.horizontalSpacing, y: centerY - config.verticalSpacing, filled: true, index: 2 },
     
-    // Center row (hex 4, 5, 6) - Hex 5 at absolute center
-    { x: centerX - config.horizontalSpacing, y: centerY, filled: false, index: 3 },
+    // Center row (hex 4, 5, 6) - wider middle row
+    { x: centerX - config.horizontalSpacing * 2, y: centerY, filled: false, index: 3 },
     { x: centerX, y: centerY, filled: false, index: 4 },
-    { x: centerX + config.horizontalSpacing, y: centerY, filled: true, index: 5 },
+    { x: centerX + config.horizontalSpacing * 2, y: centerY, filled: true, index: 5 },
     
     // Bottom (hex 7)
-    { x: centerX, y: centerY + config.verticalSpacing, filled: false, index: 6 },
+    { x: centerX, y: centerY + config.verticalSpacing * 1.5, filled: false, index: 6 },
   ];
 
   return (
