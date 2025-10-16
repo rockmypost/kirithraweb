@@ -155,9 +155,11 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
                   <h3 className={`${config.titleSize} font-bold mb-1 transition-all ${position.filled ? 'text-white' : 'text-foreground'}`}>
                     {value.title}
                   </h3>
-                  <p className={`${config.descSize} leading-relaxed transition-all duration-300 ${position.filled ? 'text-white/95' : 'text-muted-foreground/70'}`}>
-                    {value.description}
-                  </p>
+                  {config.layout === 'horizontal' && (
+                    <p className={`${config.descSize} leading-relaxed transition-all duration-300 ${position.filled ? 'text-white/95' : 'text-muted-foreground/70'}`}>
+                      {value.description}
+                    </p>
+                  )}
                 </div>
               </div>
             </motion.div>
