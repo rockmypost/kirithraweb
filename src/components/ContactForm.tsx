@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { GlassCard } from "./GlassCard";
-import contactData from "@/content/en/contact.json";
+import contactData from "../../content/en/contact.json";
 import { ContactContent } from "@/types/content";
 import { useToast } from "@/hooks/use-toast";
 

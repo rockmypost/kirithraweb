@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import siteData from "@/content/en/site.json";
-import servicesData from "@/content/en/services.json";
-import faqData from "@/content/en/faq.json";
+import siteData from "../../content/en/site.json";
+import servicesData from "../../content/en/services.json";
+import faqData from "../../content/en/faq.json";
 
 export const SEOHead = () => {
   useEffect(() => {
