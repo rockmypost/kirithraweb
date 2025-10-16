@@ -7,7 +7,7 @@ const process = processData as ProcessContent;
 
 export const Process = () => {
   return (
-    <section id="process" className="py-20 md:py-32 bg-muted/20 relative overflow-hidden">
+    <section id="process" className="py-12 md:py-20 bg-muted/20 relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
       

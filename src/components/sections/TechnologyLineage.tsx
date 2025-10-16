@@ -7,7 +7,7 @@ const lineage = lineageData as LineageContent;
 
 export const TechnologyLineage = () => {
   return (
-    <section className="py-20 md:py-32 bg-muted/20">
+    <section className="py-12 md:py-20 bg-muted/20">
       <div className="container mx-auto px-4">
         <motion.div
           className="max-w-4xl mx-auto"

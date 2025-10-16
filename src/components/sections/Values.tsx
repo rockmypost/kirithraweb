@@ -7,7 +7,7 @@ const values = valuesData as ValuesContent;
 
 export const Values = () => {
   return (
-    <section className="py-20 sm:py-32 md:py-40 lg:py-56 bg-background">
+    <section className="py-12 sm:py-20 md:py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-4 sm:px-6 md:px-12">
         <motion.div
           className="text-center mb-12 sm:mb-16 md:mb-20 lg:mb-32 space-y-3 sm:space-y-4"

@@ -7,7 +7,7 @@ const global = globalData as GlobalContent;
 
 export const GlobalBanner = () => {
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-12 md:py-16 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           className="relative h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl overflow-hidden shadow-2xl"

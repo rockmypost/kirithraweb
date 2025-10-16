@@ -7,7 +7,7 @@ const contact = contactData as ContactContent;
 
 export const Contact = () => {
   return (
-    <section id="contact" className="py-20 md:py-32 bg-muted/20">
+    <section id="contact" className="py-12 md:py-20 bg-muted/20">
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16 space-y-4"

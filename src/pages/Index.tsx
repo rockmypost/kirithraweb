@@ -8,7 +8,6 @@ import { Values } from "@/components/sections/Values";
 import { Services } from "@/components/sections/Services";
 import { Proof } from "@/components/sections/Proof";
 import { Process } from "@/components/sections/Process";
-import { GlobalPresence } from "@/components/sections/GlobalPresence";
 import { GlobalBanner } from "@/components/sections/GlobalBanner";
 import { Contact } from "@/components/sections/Contact";
 import { FAQ } from "@/components/sections/FAQ";
@@ -26,7 +25,6 @@ const Index = () => {
         <Services />
         <Proof />
         <Process />
-        <GlobalPresence />
         <GlobalBanner />
         <Contact />
         <FAQ />

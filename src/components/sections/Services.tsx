@@ -7,7 +7,7 @@ const services = servicesData as ServicesContent;
 
 export const Services = () => {
   return (
-    <section id="services" className="py-32 md:py-48 bg-muted/30">
+    <section id="services" className="py-16 md:py-24 bg-muted/30">
       <div className="container mx-auto px-6 md:px-12">
         <motion.div
           className="text-center mb-20 md:mb-32 space-y-4"
