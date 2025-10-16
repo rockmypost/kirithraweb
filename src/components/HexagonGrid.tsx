@@ -8,17 +8,17 @@ interface HexagonGridProps {
 
 export const HexagonGrid = ({ values }: HexagonGridProps) => {
   // Precise honeycomb formation - 7 hexagons (1-2-3-1 pattern)
-  const hexSize = 220;
-  const horizontalSpacing = 190.5; // hexSize * 0.866
-  const verticalSpacing = 165; // hexSize * 0.75
+  const hexSize = 240;
+  const horizontalSpacing = 207.8; // hexSize * 0.866
+  const verticalSpacing = 180; // hexSize * 0.75
   
   // Calculate positions from center for perfect tessellation
-  const centerX = 450; // Container width / 2
-  const centerY = 375; // Container height / 2
+  const centerX = 480; // Container width / 2
+  const centerY = 400; // Container height / 2
   
-  // Pixel-perfect honeycomb positions (1-2-3-1 pattern)
+  // Refined honeycomb positions with updated fill pattern
   const positions = [
-    // Top (hex 0)
+    // Top (hex 0) - filled
     { x: centerX, y: centerY - verticalSpacing * 2, filled: true, index: 0 },
     
     // Second row (hex 1, 2)
@@ -26,19 +26,19 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
     { x: centerX + horizontalSpacing, y: centerY - verticalSpacing, filled: true, index: 2 },
     
     // Third row (hex 3, 4, 5)
-    { x: centerX - horizontalSpacing * 2, y: centerY, filled: true, index: 4 },
-    { x: centerX, y: centerY, filled: false, index: 3 },
+    { x: centerX - horizontalSpacing * 2, y: centerY, filled: false, index: 3 },
+    { x: centerX, y: centerY, filled: false, index: 4 },
     { x: centerX + horizontalSpacing * 2, y: centerY, filled: true, index: 5 },
     
-    // Bottom (hex 6)
+    // Bottom (hex 6) - white
     { x: centerX, y: centerY + verticalSpacing * 2, filled: false, index: 6 },
   ];
 
   return (
-    <div className="relative w-full h-[750px] max-w-5xl mx-auto rounded-3xl p-4 overflow-visible">
-      {/* Subtle warm background glow */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none rounded-3xl">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/30 blur-[140px] rounded-full" />
+    <div className="relative w-full h-[800px] max-w-5xl mx-auto p-4 overflow-visible">
+      {/* Soft peach background glow */}
+      <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] blur-[160px] rounded-full" style={{ background: 'hsl(18 80% 95%)' }} />
       </div>
 
       {/* Value hexagons - 7 hexagons in precise formation */}
@@ -51,19 +51,18 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
             key={value.id}
             className="absolute -translate-x-1/2 -translate-y-1/2"
             style={{ left: position.x, top: position.y }}
-            initial={{ opacity: 0, scale: 0.5, y: -20 }}
+            initial={{ opacity: 0, scale: 0.8, y: -20 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ 
-              delay: idx * 0.1, 
+              delay: idx * 0.12, 
               duration: 0.6,
               type: "spring",
-              stiffness: 100
+              stiffness: 80
             }}
             whileHover={{ 
-              scale: 1.08, 
-              y: -12,
-              rotate: 2,
+              scale: 1.05, 
+              y: -8,
               zIndex: 10,
               transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
             }}
@@ -72,17 +71,17 @@ export const HexagonGrid = ({ values }: HexagonGridProps) => {
               <Hexagon 
                 size={hexSize} 
                 filled={position.filled} 
-                strokeWidth={2}
-                className="transition-all duration-300 group-hover:drop-shadow-[0_16px_32px_rgba(255,107,0,0.4)]" 
+                strokeWidth={1}
+                className="transition-all duration-300 group-hover:drop-shadow-[0_8px_24px_hsl(18_100%_80%_/_0.4)]" 
               />
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-12">
-                <div className={`text-3xl font-bold mb-3 transition-all ${position.filled ? 'text-white' : 'text-primary'}`}>
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-14">
+                <div className={`text-5xl font-extrabold mb-2 transition-all ${position.filled ? 'text-white' : 'text-primary'}`}>
                   {String(position.index + 1).padStart(2, '0')}
                 </div>
-                <h3 className={`text-xl font-bold mb-3 transition-all ${position.filled ? 'text-white' : 'text-foreground group-hover:text-primary'}`}>
+                <h3 className={`text-2xl font-bold mb-3 transition-all ${position.filled ? 'text-white' : 'text-foreground'}`}>
                   {value.title}
                 </h3>
-                <p className={`text-xs leading-relaxed transition-all duration-300 ${position.filled ? 'text-white/95 opacity-100' : 'text-muted-foreground opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100'}`}>
+                <p className={`text-[11px] leading-relaxed transition-all duration-300 ${position.filled ? 'text-white/95' : 'text-muted-foreground/70'}`}>
                   {value.description}
                 </p>
               </div>

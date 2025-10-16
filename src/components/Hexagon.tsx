@@ -12,7 +12,7 @@ export const Hexagon = ({
   children, 
   className, 
   size = 120,
-  strokeWidth = 2,
+  strokeWidth = 1,
   filled = false
 }: HexagonProps) => {
   const points = "50,5 93.3,25 93.3,75 50,95 6.7,75 6.7,25";
@@ -22,48 +22,35 @@ export const Hexagon = ({
       <svg
         viewBox="0 0 100 100"
         className="w-full h-full"
-        style={{ filter: 'drop-shadow(0 8px 24px hsl(18 100% 50% / 0.15))' }}
+        style={{ filter: 'drop-shadow(0 4px 16px hsl(18 100% 80% / 0.25))' }}
       >
-        {/* Shadow layer for 3D depth */}
+        {/* Soft shadow layer for subtle 3D depth */}
         <polygon
           points={points}
-          fill="hsl(18 100% 50% / 0.08)"
-          className="translate-y-2"
+          fill="hsl(18 100% 80% / 0.12)"
+          className="translate-y-1"
         />
         
-        {/* Main hexagon with gradient */}
+        {/* Main hexagon with refined gradient */}
         <polygon
           points={points}
           fill={filled ? "url(#hexGradientFilled)" : "url(#hexGradientWhite)"}
-          stroke={filled ? "hsl(18 100% 50%)" : "hsl(var(--border))"}
+          stroke={filled ? "hsl(18 100% 52%)" : "hsl(0 0% 92%)"}
           strokeWidth={strokeWidth}
           className="transition-all duration-300"
         />
         
-        {/* Top highlight for glossy effect */}
-        <polygon
-          points={points}
-          fill="url(#hexHighlight)"
-          className="transition-all duration-300"
-        />
-        
         <defs>
-          {/* Gradient for filled hexagons */}
+          {/* Lighter gradient for filled hexagons */}
           <linearGradient id="hexGradientFilled" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="hsl(18 100% 50%)" />
-            <stop offset="100%" stopColor="hsl(18 100% 45%)" />
+            <stop offset="0%" stopColor="hsl(18 100% 54%)" />
+            <stop offset="100%" stopColor="hsl(18 100% 48%)" />
           </linearGradient>
           
-          {/* Gradient for white hexagons */}
+          {/* Subtle gradient for white hexagons */}
           <linearGradient id="hexGradientWhite" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="hsl(0 0% 100%)" />
-            <stop offset="100%" stopColor="hsl(30 15% 98%)" />
-          </linearGradient>
-          
-          {/* Top highlight */}
-          <linearGradient id="hexHighlight" x1="0%" y1="0%" x2="0%" y2="50%">
-            <stop offset="0%" stopColor="white" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="white" stopOpacity="0" />
+            <stop offset="100%" stopColor="hsl(30 8% 97%)" />
           </linearGradient>
         </defs>
       </svg>
