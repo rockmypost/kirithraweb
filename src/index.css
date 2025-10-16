@@ -8,52 +8,68 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Kirithra Premium Design System */
-    --primary-dark: 0 0% 4%;
+    /* Kirithra Design System - Hermes Orange Palette */
+    --primary-dark: 220 13% 5%;
     --primary-light: 0 0% 98%;
-    --accent-gold: 43 77% 52%;
-    --accent-amber: 24 100% 63%;
-    --accent-gold-muted: 43 77% 45%;
     
-    /* Glass morphism */
-    --glass-bg: 0 0% 100%;
+    /* Primary - Hermes Orange */
+    --primary: 22 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 30 100% 60%;
+    
+    /* Accent Colors */
+    --accent-gold: 38 92% 60%;
+    --accent-amber: 35 100% 55%;
+    
+    /* Glass morphism - Orange tint */
+    --glass-bg: 255 107 0;
     --glass-bg-opacity: 0.05;
-    --glass-border: 0 0% 100%;
-    --glass-border-opacity: 0.1;
+    --glass-border: 255 107 0;
+    --glass-border-opacity: 0.15;
     
     /* Semantic tokens */
-    --background: 0 0% 4%;
+    --background: 220 13% 5%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 6%;
+    --card: 220 15% 8%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 6%;
+    --popover: 220 15% 8%;
     --popover-foreground: 0 0% 98%;
-    --primary: 43 77% 52%;
-    --primary-foreground: 0 0% 4%;
-    --secondary: 0 0% 12%;
+    
+    /* Secondary - Sophisticated Slate */
+    --secondary: 215 25% 15%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 24 100% 63%;
-    --accent-foreground: 0 0% 4%;
-    --destructive: 0 84.2% 60.2%;
+    --muted: 215 20% 12%;
+    --muted-foreground: 215 15% 65%;
+    
+    /* Accent */
+    --accent: 35 100% 55%;
+    --accent-foreground: 0 0% 9%;
+    
+    /* Destructive */
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 43 77% 52%;
+    
+    /* UI Elements */
+    --border: 215 20% 18%;
+    --input: 215 20% 15%;
+    --ring: 22 100% 50%;
     --radius: 0.75rem;
     
     /* Custom animation easing */
     --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Gradients */
+    /* Gradients - Hermes Orange */
+    --gradient-primary: linear-gradient(135deg, hsl(22 100% 50%), hsl(30 100% 60%));
     --gradient-gold: linear-gradient(135deg, hsl(var(--accent-gold)), hsl(var(--accent-amber)));
-    --gradient-dark: linear-gradient(180deg, hsl(var(--primary-dark)), hsl(0 0% 6%));
+    --gradient-subtle: linear-gradient(180deg, hsl(220 13% 5%), hsl(220 15% 8%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 13% 5%) 0%, hsl(22 100% 50% / 0.1) 100%);
     
-    /* Shadows */
-    --shadow-glow: 0 0 40px hsl(var(--accent-gold) / 0.15);
-    --shadow-card: 0 10px 40px -10px hsl(0 0% 0% / 0.3);
+    /* Shadows - Orange Glow */
+    --shadow-elegant: 0 10px 40px -10px rgba(255, 107, 0, 0.3);
+    --shadow-glow: 0 0 60px rgba(255, 107, 0, 0.25);
+    --shadow-premium: 0 20px 60px -15px rgba(255, 107, 0, 0.4);
+    --shadow-card: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -79,10 +95,12 @@ All colors MUST be HSL.
 
 @layer utilities {
   .glass-card {
-    background: hsl(var(--glass-bg) / var(--glass-bg-opacity));
-    border: 1px solid hsl(var(--glass-border) / var(--glass-border-opacity));
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(var(--glass-bg), var(--glass-bg-opacity));
+    border: 1px solid rgba(var(--glass-border), var(--glass-border-opacity));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s var(--ease-smooth);
   }
   
   .glass-card-hover {
@@ -90,9 +108,9 @@ All colors MUST be HSL.
   }
   
   .glass-card-hover:hover {
-    background: hsl(var(--glass-bg) / calc(var(--glass-bg-opacity) + 0.03));
-    border-color: hsl(var(--accent-gold) / 0.3);
+    border-color: hsl(var(--primary) / 0.3);
     box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
   }
   
   .text-gradient-gold {

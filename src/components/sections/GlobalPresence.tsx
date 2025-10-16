@@ -18,8 +18,15 @@ export const GlobalPresence = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold">{global.title}</h2>
-          <p className="text-lg text-muted-foreground">{global.short}</p>
+          <div className="inline-block mb-4">
+            <div className="text-primary text-xs font-semibold tracking-wider uppercase flex items-center gap-2">
+              <div className="h-px w-8 bg-primary" />
+              Global Network
+              <div className="h-px w-8 bg-primary" />
+            </div>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">{global.title}</h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">{global.short}</p>
         </motion.div>
         
         <motion.div
@@ -34,18 +41,21 @@ export const GlobalPresence = () => {
           </Suspense>
         </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 max-w-6xl mx-auto">
           {global.locations.map((location, index) => (
             <motion.div
               key={location.city}
-              className="text-center space-y-2"
+              className="glass-card p-6 text-center space-y-3 hover:border-primary/30 transition-all"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
+              <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-primary/10 flex items-center justify-center">
+                <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+              </div>
               <h3 className="text-lg font-semibold text-primary">{location.city}</h3>
-              <p className="text-sm text-muted-foreground">{location.focus}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{location.focus}</p>
             </motion.div>
           ))}
         </div>
