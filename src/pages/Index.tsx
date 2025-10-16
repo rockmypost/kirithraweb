@@ -12,10 +12,8 @@ import { GlobalPresence } from "@/components/sections/GlobalPresence";
 import { GlobalBanner } from "@/components/sections/GlobalBanner";
 import { Contact } from "@/components/sections/Contact";
 import { FAQ } from "@/components/sections/FAQ";
-
 const Index = () => {
-  return (
-    <>
+  return <>
       <SEOHead />
       <Header />
       <main>
@@ -27,13 +25,11 @@ const Index = () => {
         <Proof />
         <Process />
         <GlobalPresence />
-        <GlobalBanner />
+        
         <Contact />
         <FAQ />
       </main>
       <Footer />
-    </>
-  );
+    </>;
 };
-
 export default Index;
