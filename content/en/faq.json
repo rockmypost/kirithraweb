@@ -1,0 +1,11 @@
+{
+  "id": "faq",
+  "title": "FAQ",
+  "short": "Short answers for quick discovery by users and agents.",
+  "items": [
+    { "q": "What is Kirithra.ai?", "a": "A technology-native cross-border M&A and business architecture advisory firm." },
+    { "q": "Do you work with family offices?", "a": "Yes — we design governance and capital architecture for family-controlled entities." },
+    { "q": "How does the 90-day sprint work?", "a": "A focused execution cycle with weekly governance and measurable KPIs." }
+  ],
+  "lastUpdated": "2025-10-16"
+}

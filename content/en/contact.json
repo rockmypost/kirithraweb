@@ -1,0 +1,16 @@
+{
+  "id": "contact",
+  "title": "Ready to move a number?",
+  "short": "Tell us the single metric you need to change. We'll tell you if we can help.",
+  "fields": [
+    { "name": "name", "label": "Name", "required": true },
+    { "name": "email", "label": "Email", "required": true },
+    { "name": "company", "label": "Company", "required": true },
+    { "name": "jurisdictions", "label": "Jurisdiction(s)", "required": false },
+    { "name": "targetMetric", "label": "Target metric (90 days)", "required": true, "type": "textarea" },
+    { "name": "context", "label": "Context (optional)", "required": false, "type": "textarea" }
+  ],
+  "submit": { "label": "Send inquiry" },
+  "contactEmail": "hello@kirithra.global",
+  "lastUpdated": "2025-10-16"
+}

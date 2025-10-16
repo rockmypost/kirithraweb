@@ -1,0 +1,14 @@
+{
+  "id": "services",
+  "title": "Services",
+  "short": "Structured delivery across acquisition, capital, and intelligence.",
+  "services": [
+    { "id": "mna-global", "title": "M&A Global", "short": "Cross-border mergers and acquisitions with full-cycle execution.", "content": "Origination, diligence orchestration, and post-merger integration." },
+    { "id": "business-structuring", "title": "Business Structuring", "short": "Entity and capital architecture across jurisdictions.", "content": "HoldCo/OpCo design, governance, and regulatory alignment." },
+    { "id": "stakeholder-relations", "title": "Stakeholder Relations", "short": "Strategic engagement with governments, investors, and family offices.", "content": "Building trust networks that scale access and alignment." },
+    { "id": "real-estate", "title": "Real Estate Projects", "short": "Structuring, financing, and managing high-value developments.", "content": "From land to exit with measurable outcomes." },
+    { "id": "strategy-sprints", "title": "Strategy Sprints", "short": "90-day execution cycles focused on one critical metric.", "content": "Clear objectives, transparent governance, tangible results." },
+    { "id": "intelligence-systems", "title": "Intelligence & Performance Systems", "short": "Data-driven infrastructure for real-time decision-making.", "content": "Unified dashboards, predictive models, and integrated risk monitoring." }
+  ],
+  "lastUpdated": "2025-10-16"
+}

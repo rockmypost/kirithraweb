@@ -1,0 +1,15 @@
+{
+  "id": "values",
+  "title": "Our Essence",
+  "short": "Seven principles mapped into a honeycomb formation.",
+  "values": [
+    { "id": 1, "title": "Alignment", "description": "Strategy and execution in perfect sync." },
+    { "id": 2, "title": "Precision", "description": "Every move measured, every decision justified." },
+    { "id": 3, "title": "Synergy", "description": "Value emerges where forces align." },
+    { "id": 4, "title": "Adaptability", "description": "Agility under pressure, calm under volatility." },
+    { "id": 5, "title": "Commitment", "description": "Long-term alignment over short-term optics." },
+    { "id": 6, "title": "Endurance", "description": "Built to outlast cycles." },
+    { "id": 7, "title": "Regeneration", "description": "Constant renewal through insight and action." }
+  ],
+  "lastUpdated": "2025-10-16"
+}

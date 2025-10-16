@@ -1,73 +1,102 @@
-# Welcome to your Lovable project
+# KIRITHRA.ai - Corporate Website
 
-## Project info
+Ultra-premium, technology-native cross-border M&A and business architecture firm.
 
-**URL**: https://lovable.dev/projects/7c5ebee6-8e44-42eb-a58d-08b0fe1d59de
+## 🚀 Tech Stack
 
-## How can I edit this code?
+- **React 18** with TypeScript
+- **Vite** for blazing-fast builds
+- **Tailwind CSS** for styling
+- **Framer Motion** for animations
+- **Shadcn UI** components
+- **JSON-based content** architecture
 
-There are several ways of editing your application.
+## 📁 Project Structure
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/7c5ebee6-8e44-42eb-a58d-08b0fe1d59de) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+├── content/en/          # All website content (JSON)
+├── src/
+│   ├── components/      # Reusable components
+│   ├── sections/        # Page sections
+│   ├── types/           # TypeScript types
+│   └── pages/           # Route pages
 ```
 
-**Edit a file directly in GitHub**
+## 🛠️ Development
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+# Install dependencies
+npm install
 
-**Use GitHub Codespaces**
+# Start dev server
+npm run dev
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Build for production
+npm run build
 
-## What technologies are used for this project?
+# Preview production build
+npm run preview
+```
 
-This project is built with:
+## 📝 Content Updates
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+All content is in `/content/en/*.json` files. Edit these files to update website content:
 
-## How can I deploy this project?
+- `site.json` - Global site settings
+- `hero.json` - Hero section
+- `essence.json` - Essence section
+- `services.json` - Services grid
+- `proof.json` - Metrics/proof
+- And more...
 
-Simply open [Lovable](https://lovable.dev/projects/7c5ebee6-8e44-42eb-a58d-08b0fe1d59de) and click on Share -> Publish.
+Each JSON file includes `lastUpdated` timestamp for AI agent visibility.
 
-## Can I connect a custom domain to my Lovable project?
+## 🎨 Design System
 
-Yes, you can!
+Defined in `src/index.css` and `tailwind.config.ts`:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **Colors**: Premium dark theme with gold/amber accents
+- **Typography**: Inter font family
+- **Animations**: Premium easing and transitions
+- **Glass morphism**: Frosted glass effects
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## ♿ Accessibility
+
+- WCAG 2.2 AA compliant
+- Semantic HTML
+- Keyboard navigation
+- ARIA labels
+- Screen reader optimized
+
+## 🚀 Deployment
+
+```bash
+npm run build
+```
+
+Deploy the `dist/` folder to any static hosting:
+- Vercel
+- Netlify
+- AWS S3
+- GitHub Pages
+
+## 📊 Performance Targets
+
+- FCP < 1.2s
+- LCP < 2.0s
+- Bundle < 300KB gzipped
+- Lighthouse Score > 90
+
+## 🤖 AI Agent Visibility
+
+JSON-LD schemas automatically generated for:
+- Organization
+- Services
+- FAQ
+- Website
+
+Build scripts generate `/.well-known/agent.json` for AI discovery.
+
+## 📄 License
+
+© 2025 Kirithra. All rights reserved.

@@ -1,0 +1,12 @@
+{
+  "id": "hero",
+  "title": "Global business architecture that actually ships.",
+  "short": "Cross-border M&A, entity design, and real-asset execution — operated through intelligence, not bureaucracy.",
+  "etymology": "From the Greek κηρήθρα — 'honeycomb': precision, synergy, endurance.",
+  "ctas": [
+    { "label": "Discuss a mandate", "variant": "primary", "href": "#contact" },
+    { "label": "See proof", "variant": "ghost", "href": "#proof" }
+  ],
+  "background": { "honeycombSVG": true },
+  "lastUpdated": "2025-10-16"
+}

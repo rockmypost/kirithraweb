@@ -1,0 +1,15 @@
+{
+  "id": "site",
+  "title": "KIRITHRA",
+  "tagline": "Excellence in global business architecture.",
+  "short": "Ultra-premium, technology-native cross-border M&A and business architecture firm.",
+  "contactEmail": "hello@kirithra.global",
+  "offices": [
+    { "city": "New York", "lat": 40.7128, "lon": -74.0060, "focus": "North America Operations" },
+    { "city": "Madrid", "lat": 40.4168, "lon": -3.7038, "focus": "European Architecture & Governance" },
+    { "city": "Dubai", "lat": 25.2048, "lon": 55.2708, "focus": "MENA Strategy & Capital Access" },
+    { "city": "São Paulo", "lat": -23.5505, "lon": -46.6333, "focus": "Latin America Origination" }
+  ],
+  "jurisdictionsCount": 21,
+  "lastUpdated": "2025-10-16"
+}

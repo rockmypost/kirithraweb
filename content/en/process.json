@@ -1,0 +1,11 @@
+{
+  "id": "process",
+  "title": "Our Process",
+  "short": "Simple. Transparent. Outcome-driven.",
+  "steps": [
+    { "id": 1, "title": "Diagnostic", "description": "Two-week deep dive: constraints, stakeholders, economics." },
+    { "id": 2, "title": "90-Day Sprint", "description": "Focused execution with weekly governance." },
+    { "id": 3, "title": "Scale or Exit", "description": "Extend, replicate, or hand over — fully documented." }
+  ],
+  "lastUpdated": "2025-10-16"
+}
