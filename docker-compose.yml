@@ -1,25 +1,17 @@
-version: '3.8'
+version: "3.8"
 
 services:
   kirithraweb:
     build: .
+    container_name: kirithraweb
+    restart: always
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ./nginx-http-only.conf:/etc/nginx/conf.d/nginx-http-only.conf
+      - ./nginx-ssl.conf:/etc/nginx/conf.d/nginx-ssl.conf
+      - ./letsencrypt:/etc/letsencrypt
+      - ./certbot:/var/www/certbot
     environment:
       - DOMAIN=kirithraweb.rockmypost.com
-      - EMAIL=pablo@rockmypost.com
-    restart: unless-stopped
-    volumes:
-      - certbot_data:/etc/letsencrypt
-      - certbot_www:/var/www/certbot
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-
-volumes:
-  certbot_data:
-  certbot_www:
