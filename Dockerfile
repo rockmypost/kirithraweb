@@ -16,8 +16,8 @@ RUN apk add --no-cache certbot certbot-nginx
 # Copy built app
 COPY --from=builder /app/dist .
 
-# Copy nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy nginx config (start with HTTP-only config)
+COPY nginx-http-only.conf /etc/nginx/conf.d/default.conf
 
 # Copy SSL setup script
 COPY setup-ssl.sh /usr/local/bin/setup-ssl.sh

@@ -1,10 +1,10 @@
 #!/bin/sh
 
-# Wait for nginx to start
-nginx -g "daemon on;"
-
 # Get domain from environment variable
 DOMAIN=${DOMAIN:-kirithraweb.rockmypost.com}
+
+# Start nginx in HTTP mode first (without SSL config)
+nginx -g "daemon on;"
 
 # If domain is not localhost, get SSL certificate
 if [ "$DOMAIN" != "localhost" ]; then
