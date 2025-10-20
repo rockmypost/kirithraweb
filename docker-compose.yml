@@ -9,9 +9,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx-http-only.conf:/etc/nginx/conf.d/nginx-http-only.conf
       - ./nginx-ssl.conf:/etc/nginx/conf.d/nginx-ssl.conf
       - ./letsencrypt:/etc/letsencrypt
       - ./certbot:/var/www/certbot
     environment:
       - DOMAIN=kirithraweb.rockmypost.com
+      - EMAIL=admin@kirithraweb.rockmypost.com

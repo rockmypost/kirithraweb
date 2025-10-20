@@ -45,10 +45,10 @@ if [ "$DOMAIN" != "localhost" ]; then
         nginx -s quit
         wait $NGINX_PID
 
-        # Replace config with SSL version
-        cp /etc/nginx/conf.d/nginx-ssl.conf /etc/nginx/conf.d/default.conf
+        # Replace config with SSL version from conf.available
+        cp /etc/nginx/conf.available/nginx-ssl.conf /etc/nginx/conf.d/default.conf
         
-        # Remove HTTP-only config to avoid conflicts
+        # Remove HTTP-only config to avoid conflicts (if still present)
         rm -f /etc/nginx/conf.d/nginx-http-only.conf
 
         # Start Nginx with SSL
