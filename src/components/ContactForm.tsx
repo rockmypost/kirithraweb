@@ -40,7 +40,7 @@ export const ContactForm = () => {
       // Configuración de Web3Forms
       formDataToSend.append('access_key', 'e71f4a09-9bcb-4f8b-966f-af9c403b2f55');
       formDataToSend.append('subject', `Nueva consulta de ${formData.name} - ${formData.company}`);
-      formDataToSend.append('from_name', 'KIRITHRA.AI');
+      formDataToSend.append('from_name', '🍯 KIRITHRA.AI');
       formDataToSend.append('to', 'kirithraweb@gmail.com');
       formDataToSend.append('replyto', formData.email);
       
@@ -48,6 +48,7 @@ export const ContactForm = () => {
       formDataToSend.append('template', 'custom');
       formDataToSend.append('redirect', 'false');
       formDataToSend.append('honeypot', '');
+      formDataToSend.append('no_reply', 'true');
       
       // No enviamos campos sueltos para evitar duplicados en el correo
       
@@ -56,21 +57,21 @@ export const ContactForm = () => {
       
       // Crear mensaje de texto profesional enfocado en claridad, elegancia y simpleza
       const textMessage = `
-🚀 New Inquiry via KIRITHRA.AI Website
-----------------------------------
+🍯 KIRITHRA.AI - NEW INQUIRY
+═══════════════════════════════════════
 
-👤 Name: ${formData.name.toUpperCase()}
-✉️ Email: ${formData.email.toUpperCase()}
-🏢 Company: ${formData.company.toUpperCase()}
-📍 Jurisdiction(s): ${(formData.jurisdictions || 'Not specified').toUpperCase()}
+👤 NAME: ${formData.name.toUpperCase()}
+✉️ EMAIL: ${formData.email.toUpperCase()}
+🏢 COMPANY: ${formData.company.toUpperCase()}
+📍 JURISDICTION(S): ${(formData.jurisdictions || 'NOT SPECIFIED').toUpperCase()}
 
-----------------------------------
-🎯 Target Metric (90 days):
+═══════════════════════════════════════
+🎯 TARGET METRIC (90 DAYS):
 ${formData.targetMetric.toUpperCase()}
 
-${formData.context ? `📝 Additional Context:\n${formData.context.toUpperCase()}\n` : ''}
-----------------------------------
-Submitted: ${new Date().toLocaleString('es-ES', {
+${formData.context ? `📝 ADDITIONAL CONTEXT:\n${formData.context.toUpperCase()}\n` : ''}
+═══════════════════════════════════════
+📅 SUBMITTED: ${new Date().toLocaleString('es-ES', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
@@ -79,8 +80,8 @@ Submitted: ${new Date().toLocaleString('es-ES', {
 }).replace(/\//g, '-')}
 `;
       
-      // Agregar el mensaje de texto al formulario (usando 'body' para evitar encabezado)
-      formDataToSend.append('body', textMessage);
+      // Agregar el mensaje de texto al formulario
+      formDataToSend.append('message', textMessage);
       
       // Enviar formulario
       console.log('🚀 Enviando formulario a Web3Forms...');
@@ -131,7 +132,7 @@ Submitted: ${new Date().toLocaleString('es-ES', {
       <form onSubmit={handleSubmit} className="space-y-6">
         {contact.fields.map((field) => (
           <div key={field.name} className="space-y-2">
-            <Label htmlFor={field.name} className="text-foreground">
+            <Label htmlFor={field.name} className="text-primary">
               {field.label} {field.required && <span className="text-primary">*</span>}
             </Label>
             {field.type === "textarea" ? (
