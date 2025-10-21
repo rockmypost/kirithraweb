@@ -55,6 +55,237 @@ export const ContactForm = () => {
       // Bot check (protección anti-spam)
       formDataToSend.append('botcheck', '');
       
+      // Template HTML personalizado con la estética del sitio
+      const emailTemplate = `
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Nueva Consulta - Kirithra Global</title>
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+            
+            body {
+              margin: 0;
+              padding: 0;
+              font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+              background: linear-gradient(135deg, #FCFCFB 0%, #FFF5F0 100%);
+              color: #2D3748;
+              line-height: 1.6;
+            }
+            
+            .email-container {
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+              background: linear-gradient(135deg, #FCFCFB 0%, #FFF5F0 100%);
+            }
+            
+            .email-card {
+              background: rgba(255, 255, 255, 0.8);
+              backdrop-filter: blur(10px);
+              border-radius: 24px;
+              padding: 40px;
+              box-shadow: 0 20px 60px -15px rgba(255, 107, 0, 0.25);
+              border: 1px solid rgba(255, 107, 0, 0.1);
+            }
+            
+            .header {
+              text-align: center;
+              margin-bottom: 40px;
+              padding-bottom: 30px;
+              border-bottom: 2px solid #FF6B00;
+            }
+            
+            .logo {
+              height: 80px;
+              width: auto;
+              margin: 0 auto;
+            }
+            
+            .title {
+              font-size: 28px;
+              font-weight: 700;
+              color: #2D3748;
+              margin-bottom: 20px;
+              letter-spacing: -0.02em;
+            }
+            
+            .section {
+              margin: 30px 0;
+            }
+            
+            .section-title {
+              font-size: 20px;
+              font-weight: 600;
+              color: #FF6B00;
+              margin-bottom: 20px;
+              padding-bottom: 10px;
+              border-bottom: 1px solid #E2E8F0;
+            }
+            
+            .field {
+              margin: 15px 0;
+              padding: 15px;
+              background: #F7FAFC;
+              border-radius: 12px;
+              border-left: 4px solid #FF6B00;
+            }
+            
+            .field-label {
+              font-weight: 600;
+              color: #4A5568;
+              margin-bottom: 8px;
+              font-size: 14px;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+            }
+            
+            .field-value {
+              color: #2D3748;
+              font-size: 16px;
+              white-space: pre-line;
+            }
+            
+            .highlight-box {
+              background: linear-gradient(135deg, #FFF5F0, #FFE4D6);
+              border: 1px solid #FF6B00;
+              border-radius: 16px;
+              padding: 20px;
+              margin: 20px 0;
+            }
+            
+            .footer {
+              margin-top: 40px;
+              padding-top: 30px;
+              border-top: 1px solid #E2E8F0;
+              text-align: center;
+              color: #718096;
+              font-size: 14px;
+            }
+            
+            .footer-logo {
+              height: 80px;
+              width: auto;
+              margin: 0 auto 20px;
+            }
+            
+            .footer-tagline {
+              font-size: 14px;
+              color: #718096;
+              margin-bottom: 20px;
+              max-width: 400px;
+              margin-left: auto;
+              margin-right: auto;
+            }
+            
+            .footer-legal {
+              font-size: 12px;
+              color: #718096;
+              margin: 5px 0;
+            }
+            
+            .cta-button {
+              display: inline-block;
+              background: linear-gradient(135deg, #FF6B00, #FF8C00);
+              color: white;
+              padding: 12px 24px;
+              border-radius: 8px;
+              text-decoration: none;
+              font-weight: 600;
+              margin: 20px 0;
+              box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+            }
+            
+            .divider {
+              height: 1px;
+              background: linear-gradient(90deg, transparent, #FF6B00, transparent);
+              margin: 30px 0;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="email-container">
+            <div class="email-card">
+              <div class="header">
+                <div style="font-size: 32px; font-weight: 700; color: #FF6B00; margin-bottom: 10px; letter-spacing: -0.02em;">KIRITHRA</div>
+              </div>
+              
+              <h1 class="title">Nueva Consulta de Contacto</h1>
+              
+              <div class="section">
+                <h2 class="section-title">Información del Cliente</h2>
+                
+                <div class="field">
+                  <div class="field-label">Nombre</div>
+                  <div class="field-value">${formData.name}</div>
+                </div>
+                
+                <div class="field">
+                  <div class="field-label">Email</div>
+                  <div class="field-value">${formData.email}</div>
+                </div>
+                
+                <div class="field">
+                  <div class="field-label">Empresa</div>
+                  <div class="field-value">${formData.company}</div>
+                </div>
+                
+                <div class="field">
+                  <div class="field-label">Jurisdicciones</div>
+                  <div class="field-value">${formData.jurisdictions || 'No especificado'}</div>
+                </div>
+              </div>
+              
+              <div class="divider"></div>
+              
+              <div class="section">
+                <h2 class="section-title">Detalles de la Consulta</h2>
+                
+                <div class="highlight-box">
+                  <div class="field-label">Métrica Objetivo (90 días)</div>
+                  <div class="field-value">${formData.targetMetric}</div>
+                </div>
+                
+                ${formData.context ? `
+                  <div class="highlight-box">
+                    <div class="field-label">Contexto Adicional</div>
+                    <div class="field-value">${formData.context}</div>
+                  </div>
+                ` : ''}
+              </div>
+              
+              <div class="footer">
+                <div style="font-size: 32px; font-weight: 700; color: #FF6B00; margin-bottom: 20px; letter-spacing: -0.02em;">KIRITHRA</div>
+                <p class="footer-tagline">Excellence in global business architecture.</p>
+                <div class="footer-legal">
+                  <p>© 2025 Kirithra</p>
+                  <p>Registered in multiple jurisdictions. Confidentiality and ethics by design.</p>
+                </div>
+                <p style="margin-top: 20px;">
+                  <a href="mailto:${formData.email}" class="cta-button">Responder al Cliente</a>
+                </p>
+                <p style="margin-top: 20px; font-size: 12px; color: #9CA3AF;">
+                  Este mensaje fue enviado desde el formulario de contacto de Kirithra Global<br>
+                  Fecha: ${new Date().toLocaleString('es-ES', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric', 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                  })}
+                </p>
+              </div>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+      
+      // Agregar el template HTML al formulario
+      formDataToSend.append('html', emailTemplate);
+      
       // Enviar formulario
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
