@@ -44,58 +44,63 @@ export const ContactForm = () => {
       formDataToSend.append('to', 'kirithraweb@gmail.com');
       formDataToSend.append('replyto', formData.email);
       
-      // Campos del formulario
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('company', formData.company);
-      formDataToSend.append('jurisdictions', formData.jurisdictions || 'No especificado');
-      formDataToSend.append('targetMetric', formData.targetMetric);
-      formDataToSend.append('context', formData.context || 'No proporcionado');
+      // No enviamos campos sueltos para evitar duplicados en el correo
       
       // Bot check (protección anti-spam)
       formDataToSend.append('botcheck', '');
       
-      // Crear mensaje de texto simple y bien formateado
+      // Crear mensaje estilo "TOP SECRET" con fuente typewriter
       const textMessage = `
-═══════════════════════════════════════════════════════════════
-                           KIRITHRA
-                    Nueva Consulta de Contacto
-═══════════════════════════════════════════════════════════════
+┌─────────────────────────────────────────────────────────────┐
+│  ████████ ████████  ██████  ████████ ████████ ████████      │
+│  ██   ██ ██   ██  ██   ██    ██    ██   ██ ██   ██        │
+│  ██████  ████████  ██████    ██    ████████ ████████        │
+│  ██   ██ ██   ██  ██   ██    ██    ██   ██ ██   ██        │
+│  ██████  ██   ██  ██████     ██    ██   ██ ██   ██        │
+│                                                             │
+│  ═══════════════════════════════════════════════════════   │
+│  CLASSIFICATION: CONFIDENTIAL                               │
+│  REPORT TYPE: CLIENT INQUIRY                                │
+│  TIMESTAMP: ${new Date().toISOString().replace('T', ' ').substring(0, 19)} UTC │
+│  ═══════════════════════════════════════════════════════   │
+└─────────────────────────────────────────────────────────────┘
 
-📋 INFORMACIÓN DEL CLIENTE
-───────────────────────────────────────────────────────────────
+┌─ CLIENT PROFILE ────────────────────────────────────────────┐
+│                                                             │
+│  SUBJECT: ${formData.name.padEnd(40)} │
+│  EMAIL:   ${formData.email.padEnd(40)} │
+│  COMPANY: ${formData.company.padEnd(40)} │
+│  REGION:  ${(formData.jurisdictions || 'UNSPECIFIED').padEnd(40)} │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 
-👤 Nombre: ${formData.name}
-📧 Email: ${formData.email}
-🏢 Empresa: ${formData.company}
-🌍 Jurisdicciones: ${formData.jurisdictions || 'No especificado'}
+┌─ MISSION BRIEFING ──────────────────────────────────────────┐
+│                                                             │
+│  OBJECTIVE (90-DAY WINDOW):                                 │
+│  ${formData.targetMetric.split('\n').map(line => `│  ${line.padEnd(55)} │`).join('\n')} │
+│                                                             │
+${formData.context ? `│  ADDITIONAL INTELLIGENCE:                              │
+│  ${formData.context.split('\n').map(line => `│  ${line.padEnd(55)} │`).join('\n')} │
+│                                                             │
+` : ''}└─────────────────────────────────────────────────────────────┘
 
-📝 DETALLES DE LA CONSULTA
-───────────────────────────────────────────────────────────────
-
-🎯 MÉTRICA OBJETIVO (90 días):
-${formData.targetMetric}
-
-${formData.context ? `📄 CONTEXTO ADICIONAL:
-${formData.context}` : ''}
-
-═══════════════════════════════════════════════════════════════
-                              KIRITHRA
-                    Excellence in global business architecture.
-
-© 2025 Kirithra
-Registered in multiple jurisdictions. Confidentiality and ethics by design.
-
-📅 Fecha: ${new Date().toLocaleString('es-ES', { 
+┌─ CLASSIFICATION FOOTER ─────────────────────────────────────┐
+│                                                             │
+│  KIRITHRA GLOBAL STRATEGIC CONSULTING                       │
+│  Excellence in global business architecture.                │
+│                                                             │
+│  © 2025 Kirithra | Multiple Jurisdictions                  │
+│  Confidentiality and ethics by design.                     │
+│                                                             │
+│  REPORT GENERATED: ${new Date().toLocaleString('es-ES', {
   year: 'numeric', 
-  month: 'long', 
-  day: 'numeric', 
+  month: '2-digit', 
+  day: '2-digit', 
   hour: '2-digit', 
-  minute: '2-digit' 
-})}
-
-Este mensaje fue enviado desde el formulario de contacto de Kirithra Global.
-═══════════════════════════════════════════════════════════════
+  minute: '2-digit'
+}).replace(/\//g, '-')} | SOURCE: Web Contact Form            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
       `;
       
       // Agregar el mensaje de texto al formulario
