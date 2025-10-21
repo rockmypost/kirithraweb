@@ -13,8 +13,9 @@ const contact = contactData as ContactContent;
 export const ContactForm = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Client-side validation
@@ -30,15 +31,57 @@ export const ContactForm = () => {
       return;
     }
 
-    // In production, send to backend
-    console.log("Form submitted:", formData);
-    
-    toast({
-      title: "Inquiry sent",
-      description: "We'll review your metric and respond within 48 hours.",
-    });
-    
-    setFormData({});
+    setIsSubmitting(true);
+
+    try {
+      // Crear FormData para enviar como multipart/form-data
+      const formDataToSend = new FormData();
+      
+      // Configuración de Web3Forms
+      formDataToSend.append('access_key', 'e71f4a09-9bcb-4f8b-966f-af9c403b2f55');
+      formDataToSend.append('subject', `Nueva consulta de ${formData.name} - ${formData.company}`);
+      formDataToSend.append('from_name', 'Kirithra Global Website');
+      formDataToSend.append('to', 'kirithraweb@gmail.com');
+      formDataToSend.append('replyto', formData.email);
+      
+      // Campos del formulario
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('company', formData.company);
+      formDataToSend.append('jurisdictions', formData.jurisdictions || 'No especificado');
+      formDataToSend.append('targetMetric', formData.targetMetric);
+      formDataToSend.append('context', formData.context || 'No proporcionado');
+      
+      // Bot check (protección anti-spam)
+      formDataToSend.append('botcheck', '');
+      
+      // Enviar formulario
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast({
+          title: "Consulta enviada",
+          description: "Hemos recibido tu consulta y te responderemos dentro de 48 horas.",
+        });
+        setFormData({});
+      } else {
+        throw new Error(result.message || 'Failed to send');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Error al enviar",
+        description: "Hubo un problema al enviar tu consulta. Por favor, inténtalo de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -75,8 +118,9 @@ export const ContactForm = () => {
           type="submit" 
           size="lg" 
           className="w-full bg-primary text-primary-foreground hover:opacity-90"
+          disabled={isSubmitting}
         >
-          {contact.submit.label}
+          {isSubmitting ? "Enviando..." : contact.submit.label}
         </Button>
       </form>
     </GlassCard>
