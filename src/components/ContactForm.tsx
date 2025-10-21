@@ -46,6 +46,8 @@ export const ContactForm = () => {
       
       // Eliminar encabezado genérico de Web3Forms
       formDataToSend.append('template', 'custom');
+      formDataToSend.append('redirect', 'false');
+      formDataToSend.append('honeypot', '');
       
       // No enviamos campos sueltos para evitar duplicados en el correo
       
@@ -77,8 +79,8 @@ Submitted: ${new Date().toLocaleString('es-ES', {
 }).replace(/\//g, '-')}
 `;
       
-      // Agregar el mensaje de texto al formulario
-      formDataToSend.append('message', textMessage);
+      // Agregar el mensaje de texto al formulario (usando 'body' para evitar encabezado)
+      formDataToSend.append('body', textMessage);
       
       // Enviar formulario
       console.log('🚀 Enviando formulario a Web3Forms...');
