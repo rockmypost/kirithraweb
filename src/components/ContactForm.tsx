@@ -49,59 +49,30 @@ export const ContactForm = () => {
       // Bot check (protección anti-spam)
       formDataToSend.append('botcheck', '');
       
-      // Crear mensaje estilo "TOP SECRET" con fuente typewriter
+      // Crear mensaje de texto profesional enfocado en claridad, elegancia y simpleza
       const textMessage = `
-┌─────────────────────────────────────────────────────────────┐
-│  ████████ ████████  ██████  ████████ ████████ ████████      │
-│  ██   ██ ██   ██  ██   ██    ██    ██   ██ ██   ██        │
-│  ██████  ████████  ██████    ██    ████████ ████████        │
-│  ██   ██ ██   ██  ██   ██    ██    ██   ██ ██   ██        │
-│  ██████  ██   ██  ██████     ██    ██   ██ ██   ██        │
-│                                                             │
-│  ═══════════════════════════════════════════════════════   │
-│  CLASSIFICATION: CONFIDENTIAL                               │
-│  REPORT TYPE: CLIENT INQUIRY                                │
-│  TIMESTAMP: ${new Date().toISOString().replace('T', ' ').substring(0, 19)} UTC │
-│  ═══════════════════════════════════════════════════════   │
-└─────────────────────────────────────────────────────────────┘
+🚀 New Inquiry via **Kirithra.ai** Website
+----------------------------------
 
-┌─ CLIENT PROFILE ────────────────────────────────────────────┐
-│                                                             │
-│  SUBJECT: ${formData.name.padEnd(40)} │
-│  EMAIL:   ${formData.email.padEnd(40)} │
-│  COMPANY: ${formData.company.padEnd(40)} │
-│  REGION:  ${(formData.jurisdictions || 'UNSPECIFIED').padEnd(40)} │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+👤 Name: **${formData.name}**
+✉️ Email: **${formData.email}**
+🏢 Company: **${formData.company}**
+📍 Jurisdiction(s): **${formData.jurisdictions || 'Not specified'}**
 
-┌─ MISSION BRIEFING ──────────────────────────────────────────┐
-│                                                             │
-│  OBJECTIVE (90-DAY WINDOW):                                 │
-│  ${formData.targetMetric.split('\n').map(line => `│  ${line.padEnd(55)} │`).join('\n')} │
-│                                                             │
-${formData.context ? `│  ADDITIONAL INTELLIGENCE:                              │
-│  ${formData.context.split('\n').map(line => `│  ${line.padEnd(55)} │`).join('\n')} │
-│                                                             │
-` : ''}└─────────────────────────────────────────────────────────────┘
+----------------------------------
+🎯 Target Metric (90 days):
+**${formData.targetMetric}**
 
-┌─ CLASSIFICATION FOOTER ─────────────────────────────────────┐
-│                                                             │
-│  KIRITHRA GLOBAL STRATEGIC CONSULTING                       │
-│  Excellence in global business architecture.                │
-│                                                             │
-│  © 2025 Kirithra | Multiple Jurisdictions                  │
-│  Confidentiality and ethics by design.                     │
-│                                                             │
-│  REPORT GENERATED: ${new Date().toLocaleString('es-ES', {
-  year: 'numeric', 
-  month: '2-digit', 
-  day: '2-digit', 
-  hour: '2-digit', 
+${formData.context ? `📝 Additional Context:\n**${formData.context}**\n` : ''}
+----------------------------------
+Submitted: ${new Date().toLocaleString('es-ES', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
   minute: '2-digit'
-}).replace(/\//g, '-')} | SOURCE: Web Contact Form            │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-      `;
+}).replace(/\//g, '-')}
+`;
       
       // Agregar el mensaje de texto al formulario
       formDataToSend.append('message', textMessage);
