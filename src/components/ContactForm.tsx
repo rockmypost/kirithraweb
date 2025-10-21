@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,7 +15,7 @@ export const ContactForm = () => {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     // Client-side validation
@@ -43,6 +43,8 @@ export const ContactForm = () => {
       formDataToSend.append('from_name', 'Kirithra Global Website');
       formDataToSend.append('to', 'kirithraweb@gmail.com');
       formDataToSend.append('replyto', formData.email);
+      formDataToSend.append('redirect', 'false');
+      formDataToSend.append('honeypot', '');
       
       // Campos del formulario
       formDataToSend.append('name', formData.name);
@@ -55,244 +57,101 @@ export const ContactForm = () => {
       // Bot check (protección anti-spam)
       formDataToSend.append('botcheck', '');
       
-      // Template HTML personalizado con la estética del sitio
-      const emailTemplate = `
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Nueva Consulta - Kirithra Global</title>
-          <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+      // Crear mensaje HTML para el email
+      const htmlMessage = `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #FCFCFB 0%, #FFF5F0 100%); padding: 30px; text-align: center; border-bottom: 2px solid #FF6B00;">
+            <img src="https://kirithra.ai/assets/logo.png" alt="Kirithra" style="height: 60px; width: auto; margin: 0 auto 15px; display: block;" />
+            <p style="color: #718096; margin: 0; font-size: 16px; font-weight: 500;">Nueva Consulta de Contacto</p>
+          </div>
+          
+          <!-- Content -->
+          <div style="padding: 30px;">
+            <!-- Información del Cliente -->
+            <h2 style="color: #FF6B00; font-size: 20px; font-weight: 600; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #E2E8F0;">Información del Cliente</h2>
             
-            body {
-              margin: 0;
-              padding: 0;
-              font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
-              background: linear-gradient(135deg, #FCFCFB 0%, #FFF5F0 100%);
-              color: #2D3748;
-              line-height: 1.6;
-            }
+            <div style="margin: 15px 0; padding: 15px; background: #F7FAFC; border-radius: 12px; border-left: 4px solid #FF6B00;">
+              <strong style="color: #4A5568; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">Nombre:</strong><br>
+              <span style="color: #2D3748; font-size: 16px;">${formData.name}</span>
+            </div>
             
-            .email-container {
-              max-width: 600px;
-              margin: 0 auto;
-              padding: 20px;
-              background: linear-gradient(135deg, #FCFCFB 0%, #FFF5F0 100%);
-            }
+            <div style="margin: 15px 0; padding: 15px; background: #F7FAFC; border-radius: 12px; border-left: 4px solid #FF6B00;">
+              <strong style="color: #4A5568; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">Email:</strong><br>
+              <span style="color: #2D3748; font-size: 16px;">${formData.email}</span>
+            </div>
             
-            .email-card {
-              background: rgba(255, 255, 255, 0.8);
-              backdrop-filter: blur(10px);
-              border-radius: 24px;
-              padding: 40px;
-              box-shadow: 0 20px 60px -15px rgba(255, 107, 0, 0.25);
-              border: 1px solid rgba(255, 107, 0, 0.1);
-            }
+            <div style="margin: 15px 0; padding: 15px; background: #F7FAFC; border-radius: 12px; border-left: 4px solid #FF6B00;">
+              <strong style="color: #4A5568; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">Empresa:</strong><br>
+              <span style="color: #2D3748; font-size: 16px;">${formData.company}</span>
+            </div>
             
-            .header {
-              text-align: center;
-              margin-bottom: 40px;
-              padding-bottom: 30px;
-              border-bottom: 2px solid #FF6B00;
-            }
+            <div style="margin: 15px 0; padding: 15px; background: #F7FAFC; border-radius: 12px; border-left: 4px solid #FF6B00;">
+              <strong style="color: #4A5568; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">Jurisdicciones:</strong><br>
+              <span style="color: #2D3748; font-size: 16px;">${formData.jurisdictions || 'No especificado'}</span>
+            </div>
             
-            .logo {
-              height: 80px;
-              width: auto;
-              margin: 0 auto;
-            }
+            <!-- Divider -->
+            <div style="height: 1px; background: linear-gradient(90deg, transparent, #FF6B00, transparent); margin: 30px 0;"></div>
             
-            .title {
-              font-size: 28px;
-              font-weight: 700;
-              color: #2D3748;
-              margin-bottom: 20px;
-              letter-spacing: -0.02em;
-            }
+            <!-- Detalles de la Consulta -->
+            <h2 style="color: #FF6B00; font-size: 20px; font-weight: 600; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #E2E8F0;">Detalles de la Consulta</h2>
             
-            .section {
-              margin: 30px 0;
-            }
+            <div style="background: linear-gradient(135deg, #FFF5F0, #FFE4D6); border: 1px solid #FF6B00; border-radius: 16px; padding: 20px; margin: 20px 0;">
+              <strong style="color: #4A5568; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">Métrica Objetivo (90 días):</strong><br>
+              <span style="color: #2D3748; font-size: 16px; white-space: pre-line;">${formData.targetMetric}</span>
+            </div>
             
-            .section-title {
-              font-size: 20px;
-              font-weight: 600;
-              color: #FF6B00;
-              margin-bottom: 20px;
-              padding-bottom: 10px;
-              border-bottom: 1px solid #E2E8F0;
-            }
-            
-            .field {
-              margin: 15px 0;
-              padding: 15px;
-              background: #F7FAFC;
-              border-radius: 12px;
-              border-left: 4px solid #FF6B00;
-            }
-            
-            .field-label {
-              font-weight: 600;
-              color: #4A5568;
-              margin-bottom: 8px;
-              font-size: 14px;
-              text-transform: uppercase;
-              letter-spacing: 0.05em;
-            }
-            
-            .field-value {
-              color: #2D3748;
-              font-size: 16px;
-              white-space: pre-line;
-            }
-            
-            .highlight-box {
-              background: linear-gradient(135deg, #FFF5F0, #FFE4D6);
-              border: 1px solid #FF6B00;
-              border-radius: 16px;
-              padding: 20px;
-              margin: 20px 0;
-            }
-            
-            .footer {
-              margin-top: 40px;
-              padding-top: 30px;
-              border-top: 1px solid #E2E8F0;
-              text-align: center;
-              color: #718096;
-              font-size: 14px;
-            }
-            
-            .footer-logo {
-              height: 80px;
-              width: auto;
-              margin: 0 auto 20px;
-            }
-            
-            .footer-tagline {
-              font-size: 14px;
-              color: #718096;
-              margin-bottom: 20px;
-              max-width: 400px;
-              margin-left: auto;
-              margin-right: auto;
-            }
-            
-            .footer-legal {
-              font-size: 12px;
-              color: #718096;
-              margin: 5px 0;
-            }
-            
-            .cta-button {
-              display: inline-block;
-              background: linear-gradient(135deg, #FF6B00, #FF8C00);
-              color: white;
-              padding: 12px 24px;
-              border-radius: 8px;
-              text-decoration: none;
-              font-weight: 600;
-              margin: 20px 0;
-              box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
-            }
-            
-            .divider {
-              height: 1px;
-              background: linear-gradient(90deg, transparent, #FF6B00, transparent);
-              margin: 30px 0;
-            }
-          </style>
-        </head>
-        <body>
-          <div class="email-container">
-            <div class="email-card">
-              <div class="header">
-                <div style="font-size: 32px; font-weight: 700; color: #FF6B00; margin-bottom: 10px; letter-spacing: -0.02em;">KIRITHRA</div>
+            ${formData.context ? `
+              <div style="background: linear-gradient(135deg, #FFF5F0, #FFE4D6); border: 1px solid #FF6B00; border-radius: 16px; padding: 20px; margin: 20px 0;">
+                <strong style="color: #4A5568; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">Contexto Adicional:</strong><br>
+                <span style="color: #2D3748; font-size: 16px; white-space: pre-line;">${formData.context}</span>
               </div>
-              
-              <h1 class="title">Nueva Consulta de Contacto</h1>
-              
-              <div class="section">
-                <h2 class="section-title">Información del Cliente</h2>
-                
-                <div class="field">
-                  <div class="field-label">Nombre</div>
-                  <div class="field-value">${formData.name}</div>
-                </div>
-                
-                <div class="field">
-                  <div class="field-label">Email</div>
-                  <div class="field-value">${formData.email}</div>
-                </div>
-                
-                <div class="field">
-                  <div class="field-label">Empresa</div>
-                  <div class="field-value">${formData.company}</div>
-                </div>
-                
-                <div class="field">
-                  <div class="field-label">Jurisdicciones</div>
-                  <div class="field-value">${formData.jurisdictions || 'No especificado'}</div>
-                </div>
-              </div>
-              
-              <div class="divider"></div>
-              
-              <div class="section">
-                <h2 class="section-title">Detalles de la Consulta</h2>
-                
-                <div class="highlight-box">
-                  <div class="field-label">Métrica Objetivo (90 días)</div>
-                  <div class="field-value">${formData.targetMetric}</div>
-                </div>
-                
-                ${formData.context ? `
-                  <div class="highlight-box">
-                    <div class="field-label">Contexto Adicional</div>
-                    <div class="field-value">${formData.context}</div>
-                  </div>
-                ` : ''}
-              </div>
-              
-              <div class="footer">
-                <div style="font-size: 32px; font-weight: 700; color: #FF6B00; margin-bottom: 20px; letter-spacing: -0.02em;">KIRITHRA</div>
-                <p class="footer-tagline">Excellence in global business architecture.</p>
-                <div class="footer-legal">
-                  <p>© 2025 Kirithra</p>
-                  <p>Registered in multiple jurisdictions. Confidentiality and ethics by design.</p>
-                </div>
-                <p style="margin-top: 20px;">
-                  <a href="mailto:${formData.email}" class="cta-button">Responder al Cliente</a>
-                </p>
-                <p style="margin-top: 20px; font-size: 12px; color: #9CA3AF;">
-                  Este mensaje fue enviado desde el formulario de contacto de Kirithra Global<br>
-                  Fecha: ${new Date().toLocaleString('es-ES', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric', 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                  })}
-                </p>
-              </div>
+            ` : ''}
+          </div>
+          
+          <!-- Footer -->
+          <div style="background: #F0F0F0; padding: 20px; text-align: center; border-top: 1px solid #E2E8F0;">
+            <img src="https://kirithra.ai/assets/logo.png" alt="Kirithra" style="height: 50px; width: auto; margin: 0 auto 15px; display: block;" />
+            <p style="color: #718096; margin: 0 0 15px; font-size: 14px;">Excellence in global business architecture.</p>
+            <p style="color: #718096; margin: 5px 0; font-size: 12px;">© 2025 Kirithra</p>
+            <p style="color: #718096; margin: 5px 0; font-size: 12px;">Registered in multiple jurisdictions. Confidentiality and ethics by design.</p>
+            <div style="margin-top: 20px;">
+              <a href="mailto:${formData.email}" style="display: inline-block; background: linear-gradient(135deg, #FF6B00, #FF8C00); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);">Responder al Cliente</a>
+            </div>
+            <p style="margin-top: 20px; font-size: 12px; color: #9CA3AF;">
+              Este mensaje fue enviado desde el formulario de contacto de Kirithra Global<br>
+              Fecha: ${new Date().toLocaleString('es-ES', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+              })}
+            </p>
+            <div style="display: none;">
+              <!-- Ocultar el footer de Web3Forms -->
             </div>
           </div>
-        </body>
-        </html>
+        </div>
       `;
       
-      // Agregar el template HTML al formulario
-      formDataToSend.append('html', emailTemplate);
+      // Agregar el mensaje HTML al formulario
+      formDataToSend.append('message', htmlMessage);
       
       // Enviar formulario
+      console.log('Enviando formulario a Web3Forms...');
+      console.log('Datos del formulario:', Object.fromEntries(formDataToSend.entries()));
+      
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formDataToSend,
       });
 
+      console.log('Respuesta del servidor:', response.status, response.statusText);
+      
       const result = await response.json();
+      console.log('Resultado de Web3Forms:', result);
 
       if (result.success) {
         toast({
@@ -301,6 +160,7 @@ export const ContactForm = () => {
         });
         setFormData({});
       } else {
+        console.error('Error de Web3Forms:', result);
         throw new Error(result.message || 'Failed to send');
       }
     } catch (error) {
