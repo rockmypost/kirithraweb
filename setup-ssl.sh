@@ -2,7 +2,7 @@
 set -e  # Exit on error
 
 # Get domain (default value)
-DOMAIN=${DOMAIN:-kirithraweb.rockmypost.com}
+DOMAIN=${DOMAIN:-kirithra.ai}
 EMAIL=${EMAIL:-admin@$DOMAIN}
 
 echo "🏗 Starting Nginx with HTTP-only configuration..."

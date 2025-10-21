@@ -12,5 +12,5 @@ services:
       - ./letsencrypt:/etc/letsencrypt
       - ./certbot:/var/www/certbot
     environment:
-      - DOMAIN=kirithraweb.rockmypost.com
-      - EMAIL=admin@kirithraweb.rockmypost.com
+      - DOMAIN=kirithra.ai
+      - EMAIL=admin@kirithra.ai
