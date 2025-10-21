@@ -7,8 +7,14 @@ import { GlassCard } from "./GlassCard";
 import contactData from "../../content/en/contact.json";
 import { ContactContent } from "@/types/content";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 
 const contact = contactData as ContactContent;
+
+// Configuración EmailJS
+const SERVICE_ID = 'service_p495w0v';
+const TEMPLATE_ID = 'template_tz2pgva';
+const PUBLIC_KEY = 'jPGe2iO8yUjTeBQqH';
 
 export const ContactForm = () => {
   const { toast } = useToast();
@@ -34,29 +40,12 @@ export const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Crear FormData para enviar como multipart/form-data
-      const formDataToSend = new FormData();
-      
-      // Configuración de Web3Forms
-      formDataToSend.append('access_key', 'e71f4a09-9bcb-4f8b-966f-af9c403b2f55');
-      formDataToSend.append('subject', `Nueva consulta de ${formData.name} - ${formData.company}`);
-      formDataToSend.append('from_name', '🍯 KIRITHRA.AI');
-      formDataToSend.append('to', 'kirithraweb@gmail.com');
-      formDataToSend.append('replyto', formData.email);
-      
-      // Eliminar encabezado genérico de Web3Forms
-      formDataToSend.append('template', 'custom');
-      formDataToSend.append('redirect', 'false');
-      formDataToSend.append('honeypot', '');
-      formDataToSend.append('no_reply', 'true');
-      
-      // No enviamos campos sueltos para evitar duplicados en el correo
-      
-      // Bot check (protección anti-spam)
-      formDataToSend.append('botcheck', '');
-      
-      // Crear mensaje de texto profesional enfocado en claridad, elegancia y simpleza
-      const textMessage = `
+      const templateParams = {
+        from_name: '🍯 KIRITHRA.AI',
+        to_email: 'kirithraweb@gmail.com',
+        reply_to: formData.email,
+        subject: `Nueva consulta de ${formData.name} - ${formData.company}`,
+        message: `
 🍯 KIRITHRA.AI - NEW INQUIRY
 ═══════════════════════════════════════
 
@@ -69,8 +58,7 @@ export const ContactForm = () => {
 🎯 TARGET METRIC (90 DAYS):
 ${formData.targetMetric.toUpperCase()}
 
-${formData.context ? `📝 ADDITIONAL CONTEXT:\n${formData.context.toUpperCase()}\n` : ''}
-═══════════════════════════════════════
+${formData.context ? `📝 ADDITIONAL CONTEXT:\n${formData.context.toUpperCase()}\n` : ''}═══════════════════════════════════════
 📅 SUBMITTED: ${new Date().toLocaleString('es-ES', {
   year: 'numeric',
   month: '2-digit',
@@ -78,43 +66,22 @@ ${formData.context ? `📝 ADDITIONAL CONTEXT:\n${formData.context.toUpperCase()
   hour: '2-digit',
   minute: '2-digit'
 }).replace(/\//g, '-')}
-`;
+`
+      };
+
+      console.log('🚀 Enviando formulario con EmailJS...');
+      console.log('📋 Parámetros del template:', templateParams);
       
-      // Agregar el mensaje de texto al formulario
-      formDataToSend.append('message', textMessage);
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
       
-      // Enviar formulario
-      console.log('🚀 Enviando formulario a Web3Forms...');
-      console.log('📋 Datos del formulario:', Object.fromEntries(formDataToSend.entries()));
+      console.log('✅ Email enviado exitosamente');
       
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formDataToSend,
+      toast({
+        title: "✅ Consulta enviada",
+        description: "Hemos recibido tu consulta y te responderemos dentro de 48 horas.",
       });
-
-      console.log('📡 Respuesta del servidor:', response.status, response.statusText);
+      setFormData({});
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const result = await response.json();
-      console.log('✅ Resultado de Web3Forms:', result);
-
-      if (result.success) {
-        toast({
-          title: "✅ Consulta enviada",
-          description: "Hemos recibido tu consulta y te responderemos dentro de 48 horas.",
-        });
-        setFormData({});
-      } else {
-        console.error('❌ Error de Web3Forms:', result);
-        toast({
-          title: "⚠️ Error de envío",
-          description: result.message || "Hubo un problema al enviar tu consulta.",
-          variant: "destructive",
-        });
-      }
     } catch (error) {
       console.error('❌ Error sending email:', error);
       toast({
