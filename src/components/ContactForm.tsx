@@ -40,9 +40,12 @@ export const ContactForm = () => {
       // Configuración de Web3Forms
       formDataToSend.append('access_key', 'e71f4a09-9bcb-4f8b-966f-af9c403b2f55');
       formDataToSend.append('subject', `Nueva consulta de ${formData.name} - ${formData.company}`);
-      formDataToSend.append('from_name', 'Kirithra Global Website');
+      formDataToSend.append('from_name', 'KIRITHRA.AI');
       formDataToSend.append('to', 'kirithraweb@gmail.com');
       formDataToSend.append('replyto', formData.email);
+      
+      // Eliminar encabezado genérico de Web3Forms
+      formDataToSend.append('template', 'custom');
       
       // No enviamos campos sueltos para evitar duplicados en el correo
       
@@ -51,19 +54,19 @@ export const ContactForm = () => {
       
       // Crear mensaje de texto profesional enfocado en claridad, elegancia y simpleza
       const textMessage = `
-🚀 New Inquiry via **Kirithra.ai** Website
+🚀 New Inquiry via KIRITHRA.AI Website
 ----------------------------------
 
-👤 Name: **${formData.name}**
-✉️ Email: **${formData.email}**
-🏢 Company: **${formData.company}**
-📍 Jurisdiction(s): **${formData.jurisdictions || 'Not specified'}**
+👤 Name: ${formData.name.toUpperCase()}
+✉️ Email: ${formData.email.toUpperCase()}
+🏢 Company: ${formData.company.toUpperCase()}
+📍 Jurisdiction(s): ${(formData.jurisdictions || 'Not specified').toUpperCase()}
 
 ----------------------------------
 🎯 Target Metric (90 days):
-**${formData.targetMetric}**
+${formData.targetMetric.toUpperCase()}
 
-${formData.context ? `📝 Additional Context:\n**${formData.context}**\n` : ''}
+${formData.context ? `📝 Additional Context:\n${formData.context.toUpperCase()}\n` : ''}
 ----------------------------------
 Submitted: ${new Date().toLocaleString('es-ES', {
   year: 'numeric',
