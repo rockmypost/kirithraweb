@@ -41,7 +41,7 @@ export const ContactForm = () => {
       formDataToSend.append('access_key', 'e71f4a09-9bcb-4f8b-966f-af9c403b2f55');
       formDataToSend.append('subject', `Nueva consulta de ${formData.name} - ${formData.company}`);
       formDataToSend.append('from_name', '🍯 KIRITHRA.AI');
-      formDataToSend.append('to', 'kirithraweb@gmail.com');
+      formDataToSend.append('to', 'p@gasper.life');
       formDataToSend.append('replyto', formData.email);
       
       // Bot check (protección anti-spam)
