@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  kirithraweb:
+    build: .
+    container_name: kirithraweb
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./letsencrypt:/etc/letsencrypt
+      - ./certbot:/var/www/certbot
+    environment:
+      - DOMAIN=kirithra.ai
+      - EMAIL=admin@kirithra.ai
